@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour {
             if (weightModeHeavy)
             {
                 rb2d.mass = 15;
-                rb2d.gravityScale = (float)1;
-                jumpForce = 2000;
+                rb2d.gravityScale = (float)2;
+                jumpForce = 6000;
                 transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {
                 rb2d.mass = 2;
-                rb2d.gravityScale = (float)0.5;
+                rb2d.gravityScale = (float)0.6;
                 jumpForce = 1000;
                 transform.localScale = new Vector3(0.5f, 1, 1);
             }
