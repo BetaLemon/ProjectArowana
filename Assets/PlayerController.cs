@@ -7,14 +7,11 @@ public class PlayerController : MonoBehaviour {
     public bool facingRight = true;
     [HideInInspector]
     public bool jump = false;
-    public float moveForce = 365f;
-    public float maxSpeed = 5f;
-    public float jumpForce = 1000f;
-    public Transform groundCheck;
     public bool weightModeHeavy = false;
+    public float speed;
+    public float jumpHeight;
 
     private bool grounded = false;
-    private Animator anim;
     private Rigidbody2D rb2d;
     private bool prevWeightMode = false;
 
@@ -28,7 +25,6 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        //anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -59,14 +55,14 @@ public class PlayerController : MonoBehaviour {
             {
                 rb2d.mass = 15;
                 rb2d.gravityScale = (float)2;
-                jumpForce = 6000;
+                //jumpForce = 6000;
                 transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {
-                rb2d.mass = 2;
-                rb2d.gravityScale = (float)0.6;
-                jumpForce = 1000;
+                rb2d.mass = 5;
+                rb2d.gravityScale = (float)0.7;
+                //jumpForce = 1000;
                 transform.localScale = new Vector3(0.5f, 1, 1);
             }
         }
@@ -75,25 +71,23 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        // Move the player horizontally:
         float h = Input.GetAxis("Horizontal");
+        if (h != 0)
+        {
+            rb2d.velocity = new Vector2(speed * h, rb2d.velocity.y);
+        }
 
-        //anim.SetFloat("Speed", Mathf.Abs(h));
-
-        if (h * rb2d.velocity.x < maxSpeed)
-            rb2d.AddForce(Vector2.right * h * moveForce);
-
-        if (Mathf.Abs(rb2d.velocity.x) > maxSpeed)
-            rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);
-
+        // This makes the sprite flip to the direction the player is looking.
         if (h > 0 && !facingRight)
             Flip();
         else if (h < 0 && facingRight)
             Flip();
 
+        // Applies the jump to the player.
         if (jump)
-        {
-            //anim.SetTrigger("Jump");
-            rb2d.AddForce(new Vector2(0f, jumpForce));
+        { 
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
             jump = false;
         }
     }
