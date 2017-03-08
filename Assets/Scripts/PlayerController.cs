@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     private Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
     private bool prevWeightMode = false;        // This just saves the mode set for the player's weight in the previous frame.
 
-    private float dist = 1.5f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
+    private float dist = 1.6f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
 
     public LayerMask layerGround;                       // This saves the layer in which the ground is contained. This is 'cause Unity has layers for every object.
@@ -57,13 +57,29 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             {
                 rb2d.mass = 15;                                 // ... set the mass to 15.
                 rb2d.gravityScale = (float)2;                   // How much the gravity attracts things.
-                transform.localScale = new Vector3(1, 1, 1);    // For debugging purposes sets back the player's size if it has been changed in the else{} stat
+                                                                // For debugging purposes sets back the player's size if it has been changed in the else{} stat
+                if (facingRight)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
             else                                                // But if we are in Light mode...
             {
                 rb2d.mass = 5;                                  // ... we set the mass to 5.
                 rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
-                transform.localScale = new Vector3(0.5f, 1, 1); // And for debugging purposes me make the player narrower to see when he's in Light mode.
+                // And for debugging purposes me make the player narrower to see when he's in Light mode.
+                if (facingRight)
+                {
+                    transform.localScale = new Vector3(0.5f, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-0.5f, 1, 1);
+                }
             }
         }
         prevWeightMode = weightModeHeavy;                       // Update the weight mode so we can check in the next frame.
