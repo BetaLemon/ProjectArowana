@@ -25,6 +25,7 @@ public class KeyPickup : MonoBehaviour {
             print(other.gameObject.name);
             Destroy(other.gameObject);
             hudkey.SetActive(true);
+            hasKey = true;
         }
         
            
