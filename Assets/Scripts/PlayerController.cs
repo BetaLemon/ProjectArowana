@@ -15,18 +15,22 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     private bool grounded = false;              // Bool that knows if the player is touching the ground or not, so we avoid infinite jumping.
     private Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
+    private CapsuleCollider2D playerCollider;   // CapsuleCollide2D of the player
     private bool prevWeightMode = false;        // This just saves the mode set for the player's weight in the previous frame.
 
-    private float dist = 1.6f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
+    private float dist = 1.7f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
 
     public LayerMask layerGround;                       // This saves the layer in which the ground is contained. This is 'cause Unity has layers for every object.
     RaycastHit2D rayCastHit2D = new RaycastHit2D();     // Checks if the Raycast has hit the ground.
 
+    private bool canMove = true;
+
     // When the game starts, this is initialized:
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
+        playerCollider = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         if (Input.GetButtonDown("Jump") && grounded)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
             jump = true;        // Set true the jumo bool.
-            print("Jumped");    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
+            print(grounded);    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
         }
 
         if (Input.GetButtonDown("Weight"))          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
@@ -55,9 +59,10 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         {
             if (weightModeHeavy)                                // ... if we are in the Heavy mode...
             {
-                rb2d.mass = 15;                                 // ... set the mass to 15.
-                rb2d.gravityScale = (float)2;                   // How much the gravity attracts things.
-                                                                // For debugging purposes sets back the player's size if it has been changed in the else{} stat
+                rb2d.mass = 3;                                 // ... set the mass to 15.
+                rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
+                jumpHeight = 30;
+                // For debugging purposes sets back the player's size if it has been changed in the else{} stat
                 if (facingRight)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
@@ -71,19 +76,22 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             {
                 rb2d.mass = 5;                                  // ... we set the mass to 5.
                 rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
+                jumpHeight = 15;
                 // And for debugging purposes me make the player narrower to see when he's in Light mode.
                 if (facingRight)
                 {
-                    transform.localScale = new Vector3(0.5f, 1, 1);
+                    transform.localScale = new Vector3(0.5f, 0.5f, 1);
                 }
                 else
                 {
-                    transform.localScale = new Vector3(-0.5f, 1, 1);
+                    transform.localScale = new Vector3(-0.5f, 0.5f, 1);
                 }
             }
         }
         prevWeightMode = weightModeHeavy;                       // Update the weight mode so we can check in the next frame.
     }
+
+    RaycastHit2D hitInfo2D;
 
     void FixedUpdate()  // This update is called at the same framerate the game is working at. In general this is recommended for player movement and physics.
     {
@@ -92,7 +100,26 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         //                                                                                                             <-                    ->                  --
         if (h != 0) // If the player has moved left or right/the movement is neutral, do...
         {
-            rb2d.velocity = new Vector2(speed * h, rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
+            Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
+
+            // Let's check if there are obstacles
+            // in the desired direction
+            hitInfo2D = Physics2D.Raycast(transform.position, desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround);
+            if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+            if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+           // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
+            //if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
+
+            //Debug.Log(hitInfo2D.collider);
+
+            if (hitInfo2D.collider != null)
+            {
+                // There's an obstacle - do not change speed
+            }
+            else
+            {
+                rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
+            }
         }
 
         // This makes the sprite flip to the direction the player is looking at.
