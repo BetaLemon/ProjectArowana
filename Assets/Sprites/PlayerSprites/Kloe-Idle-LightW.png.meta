@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 62dad6c0f07508a4faad699c98165e21
-timeCreated: 1488978881
+guid: b655807e53c5b4a408151b3d205f85f3
+timeCreated: 1489148259
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: KloeIdleBig_0
-    21300002: KloeIdleBig_1
+    21300000: Kloe-Idle-LightW_0
+    21300002: Kloe-Idle-LightW_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -72,26 +72,26 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KloeIdleBig_0
+      name: Kloe-Idle-LightW_0
       rect:
         serializedVersion: 2
-        x: 12
+        x: 4
         y: 0
-        width: 231
-        height: 309
+        width: 77
+        height: 103
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: KloeIdleBig_1
+      name: Kloe-Idle-LightW_1
       rect:
         serializedVersion: 2
-        x: 294
+        x: 103
         y: 0
-        width: 231
-        height: 306
+        width: 77
+        height: 102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

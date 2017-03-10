@@ -26,11 +26,15 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     private bool canMove = true;
 
+    Animator animator;  //Reference to the animator component attatched to the player Kloe Game Object
+
     // When the game starts, this is initialized:
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
         playerCollider = GetComponent<CapsuleCollider2D>();
+
+        animator = GetComponent<Animator>();    //Assigns the Animator component from the player game object to the animator reference.
     }
 
     // Update is called once per frame
@@ -100,6 +104,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         //                                                                                                             <-                    ->                  --
         if (h != 0) // If the player has moved left or right/the movement is neutral, do...
         {
+            animator.SetBool("Running", true);
+
             Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
 
             // Let's check if there are obstacles
@@ -107,7 +113,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             hitInfo2D = Physics2D.Raycast(transform.position, desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround);
             if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
             if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
-           // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
+            // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
             //if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
 
             //Debug.Log(hitInfo2D.collider);
