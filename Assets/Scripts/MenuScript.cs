@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour {
 
     public Button startButton;
+    public Button exitButton;
     public Scene lol;
 	// Use this for initialization
 	void Start () {
         startButton.onClick.AddListener(StartButton);
+        exitButton.onClick.AddListener(ExitButton);
     }
 	
 	// Update is called once per frame
@@ -21,5 +23,10 @@ public class MenuScript : MonoBehaviour {
     void StartButton()
     {
         SceneManager.LoadScene(1);
+    }
+    void ExitButton()
+    {
+
+        Application.Quit();
     }
 }
