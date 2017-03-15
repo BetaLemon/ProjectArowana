@@ -9,7 +9,7 @@ public class MenuScript : MonoBehaviour {
 
     public Button startButton;
     public Button exitButton;
-    public Scene lol;
+    public Scene game;
 	// Use this for initialization
 	void Start () {
         startButton.onClick.AddListener(StartButton);

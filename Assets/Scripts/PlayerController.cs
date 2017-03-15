@@ -84,10 +84,13 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 // And for debugging purposes me make the player narrower to see when he's in Light mode.
                 if (facingRight)
                 {
+                    //dani here, added these transform 1,1 commentary to test the jellybox since this size change won't happen!
+                    //transform.localScale = new Vector3(1, 1, 1);
                     transform.localScale = new Vector3(0.5f, 0.5f, 1);
                 }
                 else
                 {
+                   //transform.localScale = new Vector3(-1, 1, 1);
                     transform.localScale = new Vector3(-0.5f, 0.5f, 1);
                 }
             }

@@ -6,7 +6,12 @@ public class JellyBox : MonoBehaviour {
 
     public Sprite idle; // Drag your first sprite here
     public Sprite crushed; // Drag your second sprite here
+    public int jumpSpeed;
+    private bool crush = false;
+    
     private SpriteRenderer spriteRenderer;
+
+    
 
     void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -21,11 +26,38 @@ public class JellyBox : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("enter");
-        spriteRenderer.sprite = crushed;
+        if (GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
+        {
+            spriteRenderer.sprite = crushed;
+            crush = true;
+        }
+        else
+        {
+            spriteRenderer.sprite = idle;
+            crush = false;
+        }
+        
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-
+        if (GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
+        {
+            spriteRenderer.sprite = crushed;
+            crush = true;
+        }
+        else if (crush)
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().jumpHeight = jumpSpeed;
+            GameObject.Find("Player").GetComponent<PlayerController>().jump = true;
+            spriteRenderer.sprite = idle;
+            crush = false;
+        }
+        else
+        {
+            spriteRenderer.sprite = idle;
+            crush = false;
+        }
+        
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
