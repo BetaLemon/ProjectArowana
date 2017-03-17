@@ -8,12 +8,13 @@ public class Wind : MonoBehaviour {
     public bool triggerEnter;
 	// Use this for initialization
 	void Start () {
-        triggerEnter = false;	
+        triggerEnter = false;
+        activated = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (triggerEnter && !GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
+		if (activated && triggerEnter && !GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
         {
             GameObject.Find("Player").GetComponent<PlayerController>().jump = true;
         }
