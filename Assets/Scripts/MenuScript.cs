@@ -7,13 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour {
 
+    public GameObject mainMenu;
+    public GameObject optionsMenu;
     public Button startButton;
     public Button exitButton;
+    public Button optionsButton;
+    public Button backToMainMenuButton;
     public Scene game;
 	// Use this for initialization
 	void Start () {
         startButton.onClick.AddListener(StartButton);
+        optionsButton.onClick.AddListener(OptionsButton);
         exitButton.onClick.AddListener(ExitButton);
+        backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+        optionsMenu.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -24,9 +31,18 @@ public class MenuScript : MonoBehaviour {
     {
         SceneManager.LoadScene(2);
     }
+    void OptionsButton()
+    {
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
     void ExitButton()
     {
-
         Application.Quit();
+    }
+    void BackToMainMenu()
+    {
+        mainMenu.SetActive(true);
+        optionsMenu.SetActive(false);
     }
 }
