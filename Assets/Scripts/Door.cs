@@ -23,7 +23,7 @@ public class Door : MonoBehaviour {
         if (GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
             print("level completed!");
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 }
