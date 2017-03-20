@@ -41,6 +41,17 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(grounded);
+        if (grounded)
+        {
+            // animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+        }
+        else {
+            animator.SetBool("Running", false);
+            animator.SetBool("Falling", true);
+        }
+
         rayCastHit2D = Physics2D.Raycast(transform.position, dir.normalized, dist, layerGround);  // Saves the collision with the ground (or the not collision).
         //Debug.Log(rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null, rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null);
         Debug.DrawRay(transform.position, dir * dist, Color.red, 0.1f);     // Draws the Raycast in form of a red line in the "Scene" tab of the Unity Editor.
@@ -50,6 +61,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
         if (Input.GetButtonDown("Jump") && grounded)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
+            animator.SetBool("Jumping", true);
             jump = true;        // Set true the jumo bool.
             print(grounded);    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
         }
@@ -128,7 +140,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         // Move the player horizontally:
         float h = Input.GetAxis("Horizontal");      // Saves the input for the player's horizontal movement =>   [left-arrow] is -1 // [right-arrow] is 1 // [neutral] is 0
         //                                                                                                             <-                    ->                  --
-        Debug.Log(h);
         if (h != 0) // If the player has moved left or right/the movement is neutral, do...
         {
 
