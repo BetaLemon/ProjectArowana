@@ -27,8 +27,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public LayerMask layerGround;                       // This saves the layer in which the ground is contained. This is 'cause Unity has layers for every object.
     RaycastHit2D rayCastHit2D = new RaycastHit2D();     // Checks if the Raycast has hit the ground.
 
-    private bool canMove = true;
-
     Animator animator;  //Reference to the animator component attatched to the player Kloe Game Object
 
     // When the game starts, this is initialized:
@@ -60,14 +58,20 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         {
             switch (WeightMode)
             {
-                case 0:
-                    WeightMode = 2;
+                case 0: //Light
+                    WeightMode = 2; // -> Heavy
+                    animator.SetBool("Heavy", true);
+                    animator.SetBool("Light", false);
                     break;
-                case 2:
-                    WeightMode = 0;
+                case 2: //Heavy
+                    WeightMode = 0; // -> Light
+                    animator.SetBool("Heavy", false);
+                    animator.SetBool("Light", true);
                     break;
-                default:
-                    WeightMode = 1;
+                default: //NoKey (Normal)
+                    WeightMode = 1; // -> Normal (Same provably)
+                    animator.SetBool("Heavy", false);
+                    animator.SetBool("Light", false);
                     break;
             }
 
@@ -124,9 +128,12 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         // Move the player horizontally:
         float h = Input.GetAxis("Horizontal");      // Saves the input for the player's horizontal movement =>   [left-arrow] is -1 // [right-arrow] is 1 // [neutral] is 0
         //                                                                                                             <-                    ->                  --
+        Debug.Log(h);
         if (h != 0) // If the player has moved left or right/the movement is neutral, do...
         {
+
             animator.SetBool("Running", true);
+
 
             Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
 
@@ -149,6 +156,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
             }
         }
+        else { animator.SetBool("Running", false); }
 
         // This makes the sprite flip to the direction the player is looking at.
         if (h > 0 && !facingRight)      // If the player moves right (h = 1) and the sprite is not already looking right, then...
