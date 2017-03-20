@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         Debug.Log(grounded);
         if (grounded)
         {
-            // animator.SetBool("Jumping", false);
+            animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
         }
         else {
