@@ -14,7 +14,7 @@ public class BreakBoxBehaviour : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter2D(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
        // GetComponent<Animation>.Play("animation name");
     }

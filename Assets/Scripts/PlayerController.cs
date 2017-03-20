@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public bool weightModeHeavy = false;        // Boolean that knows in which Weight Mode the player is in.
     public float speed;                         // Float that contains the speed at which the player moves horizontally.
     public float jumpHeight;                    // Float with the height at which the player will be able to jump.
+    [HideInInspector]
+    public int WeightMode = 2;
 
     private bool grounded = false;              // Bool that knows if the player is touching the ground or not, so we avoid infinite jumping.
     private Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
     private CapsuleCollider2D playerCollider;   // CapsuleCollide2D of the player
-    private bool prevWeightMode = false;        // This just saves the mode set for the player's weight in the previous frame.
+    private int prevWeightMode;        // This just saves the mode set for the player's weight in the previous frame.
+    private bool canChangeWeight = true;
 
     private float dist = 1.7f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
@@ -53,30 +56,79 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             print(grounded);    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
         }
 
-        if (Input.GetButtonDown("Weight"))          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
+        if (Input.GetButtonDown("Weight") && canChangeWeight)          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
         {
-            weightModeHeavy = !weightModeHeavy;     // Inverts the value of the Weight Mode (Light->Heavy / Heavy->Light).
-            print("Weight changed");                // Print "Weight changed" just for debugging purposes. This needs to be removed in the final game.
+            switch (WeightMode)
+            {
+                case 0:
+                    WeightMode = 2;
+                    break;
+                case 2:
+                    WeightMode = 0;
+                    break;
+                default:
+                    WeightMode = 1;
+                    break;
+            }
+
+            //weightModeHeavy = !weightModeHeavy;     // Inverts the value of the Weight Mode (Light->Heavy / Heavy->Light).
+            print("Weight changed to " + WeightMode);                // Print "Weight changed" just for debugging purposes. This needs to be removed in the final game.
         }
 
-        if(prevWeightMode != weightModeHeavy)                   // If the Weight Mode has changed from one frame to the next, then do...
+        if(prevWeightMode != WeightMode)                   // If the Weight Mode has changed from one frame to the next, then do...
         {
-            if (weightModeHeavy)                                // ... if we are in the Heavy mode...
+            switch (WeightMode)                                // ... if we are in the Heavy mode...
             {
-                rb2d.mass = 3;                                 // ... set the mass to 15.
-                rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
-                jumpHeight = 30;
-                // For debugging purposes sets back the player's size if it has been changed in the else{} stat
-                if (facingRight)
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
+                case 0:
+                    rb2d.mass = 3;                                 // ... set the mass to 15.
+                    rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
+                    jumpHeight = 30;
+                    // For debugging purposes sets back the player's size if it has been changed in the else{} stat
+                    if (facingRight)
+                    {
+                        transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    break;
+                case 1:
+                    rb2d.mass = 5;                                  // ... we set the mass to 5.
+                    rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
+                    jumpHeight = 15;
+                    // And for debugging purposes me make the player narrower to see when he's in Light mode.
+                    if (facingRight)
+                    {
+                        //dani here, added these transform 1,1 commentary to test the jellybox since this size change won't happen!
+                        transform.localScale = new Vector3(1, 1, 1);
+                        //transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1);
+                        //transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+                    }
+                    break;
+                case 2:
+                    rb2d.mass = 5;                                  // ... we set the mass to 5.
+                    rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
+                    jumpHeight = 15;
+                    // And for debugging purposes me make the player narrower to see when he's in Light mode.
+                    if (facingRight)
+                    {
+                        //dani here, added these transform 1,1 commentary to test the jellybox since this size change won't happen!
+                        transform.localScale = new Vector3(1, 1, 1);
+                        //transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1);
+                        //transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+                    }
+                    break;
             }
-            else                                                // But if we are in Light mode...
+            /*else                                                // But if we are in Light mode...
             {
                 rb2d.mass = 5;                                  // ... we set the mass to 5.
                 rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
@@ -93,9 +145,9 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                    transform.localScale = new Vector3(-1, 1, 1);
                    //transform.localScale = new Vector3(-0.5f, 0.5f, 1);
                 }
-            }
+            }*/
         }
-        prevWeightMode = weightModeHeavy;                       // Update the weight mode so we can check in the next frame.
+        prevWeightMode = WeightMode;                       // Update the weight mode so we can check in the next frame.
     }
 
     RaycastHit2D hitInfo2D;
@@ -114,8 +166,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             // Let's check if there are obstacles
             // in the desired direction
             hitInfo2D = Physics2D.Raycast(transform.position, desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround);
-            if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
-            if (hitInfo2D.collider == null && weightModeHeavy) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+            if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+            if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
             // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
             //if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
 
