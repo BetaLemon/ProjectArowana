@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         {
             switch (WeightMode)                                // ... if we are in the Heavy mode...
             {
-                case 0:
+                case 2:
                     rb2d.mass = 3;                                 // ... set the mass to 15.
                     rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
                     jumpHeight = 30;
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                         //transform.localScale = new Vector3(-0.5f, 0.5f, 1);
                     }
                     break;
-                case 2:
+                case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
                     jumpHeight = 15;
