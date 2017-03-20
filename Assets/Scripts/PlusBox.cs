@@ -15,8 +15,9 @@ public class PlusBox : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (!GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy){
-            GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy = true;
+        if (GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 0)
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().WeightMode = 2;
         }
     }
     

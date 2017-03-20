@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public int WeightMode = 2;
 
     private bool grounded = false;              // Bool that knows if the player is touching the ground or not, so we avoid infinite jumping.
-    private Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
+    public Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
     private CapsuleCollider2D playerCollider;   // CapsuleCollide2D of the player
     private int prevWeightMode;        // This just saves the mode set for the player's weight in the previous frame.
     private bool canChangeWeight = true;
@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         // Move the player horizontally:
         float h = Input.GetAxis("Horizontal");      // Saves the input for the player's horizontal movement =>   [left-arrow] is -1 // [right-arrow] is 1 // [neutral] is 0
         //                                                                                                             <-                    ->                  --
+        //Debug.Log(h);
         if (h != 0) // If the player has moved left or right/the movement is neutral, do...
         {
 

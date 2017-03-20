@@ -26,7 +26,7 @@ public class JellyBox : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("enter");
-        if (GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
+        if (GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 2)
         {
             spriteRenderer.sprite = crushed;
             crush = true;
@@ -35,12 +35,11 @@ public class JellyBox : MonoBehaviour {
         {
             spriteRenderer.sprite = idle;
             crush = false;
-        }
-        
+        } 
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (GameObject.Find("Player").GetComponent<PlayerController>().weightModeHeavy)
+        if (GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 2)
         {
             spriteRenderer.sprite = crushed;
             crush = true;
