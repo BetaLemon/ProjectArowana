@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(grounded);
+        //Debug.Log(grounded);
         if (grounded)
         {
             animator.SetBool("Jumping", false);
@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
             }
         }
-        else { animator.SetBool("Running", false); }
+        else {  animator.SetBool("Running", false); }
 
         // This makes the sprite flip to the direction the player is looking at.
         if (h > 0 && !facingRight)      // If the player moves right (h = 1) and the sprite is not already looking right, then...
@@ -182,6 +182,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
             jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
         }
+        
+        GameObject.Find("Wind2").GetComponent<Wind>().ApplyWind();
     }
 
     void Flip()     // As the name indicates, this function flips the sprite vertically. d->b | b->d
