@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         //Debug.Log(grounded);
         if (grounded)
         {
-            animator.SetBool("Jumping", false);
+            //animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
         }
         else {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
         if (Input.GetButtonDown("Jump") && grounded)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
-            animator.SetBool("Jumping", true);
+            //animator.SetBool("Jumping", true);
             jump = true;        // Set true the jumo bool.
             print(grounded);    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
         }
