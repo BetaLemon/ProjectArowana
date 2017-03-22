@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class KeyPickup : MonoBehaviour {
 
     public bool hasKey;
     public GameObject hudkey;
-
 	// Use this for initialization
 	void Start () {
-        hasKey = false;
-        hudkey.SetActive(false);
-    }
+     }
 
     // Update is called once per frame
     void Update()
