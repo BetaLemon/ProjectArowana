@@ -15,7 +15,6 @@ public class ImageFader : MonoBehaviour {
     // Use this for initialization
     void Start () {
         fadeObject.transform.localScale = new Vector2(Screen.width, Screen.height);
-        //removed cuz breaks unity for some reason LOL
         fadeObject.color = Color.black;
         fadeTime = 3;
 	}
