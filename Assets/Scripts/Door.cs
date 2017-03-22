@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour {
 
     // Use this for initialization
-
-    public Scene nextScene;
+    
+    public ImageFader fadeImage;
     void Start () {
 		
 	}
@@ -22,8 +22,7 @@ public class Door : MonoBehaviour {
     {
         if (GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
-            print("level completed!");
-            SceneManager.LoadScene(3);
+            fadeImage.scenefinish = true;
         }
     }
 }
