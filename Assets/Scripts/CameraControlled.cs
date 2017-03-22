@@ -27,5 +27,10 @@ public class CameraControlled : MonoBehaviour {
         {
             transform.position = new Vector3(camEnd.transform.position.x, transform.position.y, transform.position.z);
         }
+        // to be modified in the future:
+        if(player.transform.position.y > camStart.transform.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        }
 	}
 }
