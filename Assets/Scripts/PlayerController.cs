@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public bool facingRight = true;             // Boolean used for knowing if the player faces Left or Right, so we can later flip the sprite.
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
     public bool jump = false;                   // Boolean that saves whether the player is jumping or not.
-    public bool weightModeHeavy = false;        // Boolean that knows in which Weight Mode the player is in.
+    //public bool weightModeHeavy = false;        // Boolean that knows in which Weight Mode the player is in.
     public float speed;                         // Float that contains the speed at which the player moves horizontally.
     public float jumpHeight;                    // Float with the height at which the player will be able to jump.
-    [HideInInspector]
-    public int WeightMode = 2;
+    //[HideInInspector]
+    public int WeightMode = 1;
 
     private bool grounded = false;              // Bool that knows if the player is touching the ground or not, so we avoid infinite jumping.
     public Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
@@ -103,17 +103,19 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 case 2:
                     rb2d.mass = 3;                                 // ... set the mass to 15.
                     rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
-                    jumpHeight = 30;
+                    jumpHeight = 24;
+                    speed = 8;
                     break;
                 case 1:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
-                    rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
-                    jumpHeight = 15;
+                    rb2d.gravityScale = (float)1;                 // This is how much the gravity attracts.
+                    jumpHeight = 8;
                     break;
                 case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
-                    jumpHeight = 15;
+                    jumpHeight = 10;
+                    speed = 8;
                     break;
             }
             /*else                                                // But if we are in Light mode...
