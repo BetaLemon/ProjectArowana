@@ -9,8 +9,9 @@ public class Door : MonoBehaviour {
     // Use this for initialization
     
     public ImageFader fadeImage;
+    private Animator animator;
     void Start () {
-		
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -23,6 +24,7 @@ public class Door : MonoBehaviour {
         if (GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
             fadeImage.scenefinish = true;
+            animator.SetBool("Open", true);
         }
     }
 }

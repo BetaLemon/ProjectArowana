@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     Animator animator;  //Reference to the animator component attatched to the player Kloe Game Object
 
+    [HideInInspector]
+    public bool affectedByWind = false;
+    [HideInInspector]
+    public Vector2 windVector = new Vector2(0, 0);
+
     // When the game starts, this is initialized:
     void Awake()
     {
@@ -182,8 +187,18 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
             jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
         }
-        
-        GameObject.Find("Wind2").GetComponent<Wind>().ApplyWind();
+
+        //some wind spam here because my code sucks
+        if (GameObject.Find("Wind1") != null)
+            GameObject.Find("Wind1").GetComponent<Wind>().ApplyWind();
+        if (GameObject.Find("Wind2") != null)
+            GameObject.Find("Wind2").GetComponent<Wind>().ApplyWind();
+        if (GameObject.Find("Wind3") != null)
+            GameObject.Find("Wind3").GetComponent<Wind>().ApplyWind();
+        if (GameObject.Find("Wind4") != null)
+            GameObject.Find("Wind4").GetComponent<Wind>().ApplyWind();
+        if (GameObject.Find("Wind5") != null)
+            GameObject.Find("Wind5").GetComponent<Wind>().ApplyWind();
     }
 
     void Flip()     // As the name indicates, this function flips the sprite vertically. d->b | b->d

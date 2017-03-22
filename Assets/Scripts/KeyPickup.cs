@@ -8,6 +8,7 @@ public class KeyPickup : MonoBehaviour {
     public GameObject hudkey;
 	// Use this for initialization
 	void Start () {
+        hudkey.SetActive(false);
      }
 
     // Update is called once per frame
@@ -25,7 +26,6 @@ public class KeyPickup : MonoBehaviour {
             hudkey.SetActive(true);
             hasKey = true;
         }
-        
            
     }
 }
