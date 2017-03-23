@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
-                    jumpHeight = 10;
+                    jumpHeight = 13;
                     speed = 8;
                     break;
             }

@@ -27,7 +27,7 @@ public class BreakBoxBehaviour : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (prevSpeedY < -25)
+        if (prevSpeedY < -20)
         {
             animator.SetBool("Break", true);
             destroyBox = true;
