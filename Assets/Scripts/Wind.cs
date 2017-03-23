@@ -25,11 +25,7 @@ public class Wind : MonoBehaviour
         animator = fan.GetComponent<Animator>();
         particle.GetComponent<ParticleSystem>();
         triggerEnter = false;
-        speedAddedOnFrame = 0.1f;
-        windSpeed = 5;
         speedAdded = 0;
-        speedAddedOnFrame = 0.1f;
-        maxWindSpeed = 20;
 
         if (windDirection && windWay)
             speedVector = new Vector2(windSpeed, 0);
@@ -42,6 +38,19 @@ public class Wind : MonoBehaviour
 
         else
             speedVector = new Vector2(0, -windSpeed);
+
+        if (activated)
+        {
+
+            particle.Play();
+            animator.SetBool("Idle", false);
+        }
+        else
+        {
+
+            particle.Stop();
+            animator.SetBool("Idle", true);
+        }
     }
 
     // Update is called once per frame
