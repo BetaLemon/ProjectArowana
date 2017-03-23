@@ -16,9 +16,11 @@ public class MenuScript : MonoBehaviour {
     public Scene game;
 
     public ImageFader fadeImage;
+    public Image imageBG;
     // Use this for initialization
     void Start () {
-        
+
+        imageBG.rectTransform.localScale = new Vector2(Screen.width +2, Screen.height);
         //this just activated the buttons
         startButton.onClick.AddListener(StartButton);
         optionsButton.onClick.AddListener(OptionsButton);
