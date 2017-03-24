@@ -38,9 +38,9 @@ public class JellyBox : MonoBehaviour {
             }
             else if (crush && prevState != GameObject.Find("Player").GetComponent<PlayerController>().WeightMode)
             {
-                GameObject.Find("Player").GetComponent<PlayerController>().jumpHeight = jumpSpeed;
-                GameObject.Find("Player").GetComponent<PlayerController>().jump = true;
-
+               PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+                player.rb2d.velocity += new Vector2(0, jumpSpeed);
+                    
                 animator.SetBool("uncrush", true);
                 crush = false;
             }
