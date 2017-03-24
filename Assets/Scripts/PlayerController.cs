@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     private int prevWeightMode;        // This just saves the mode set for the player's weight in the previous frame.
     private bool canChangeWeight = true;
 
-    private float dist = 1.7f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
+    private float dist = 0.65f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
 
     public LayerMask layerGround;                       // This saves the layer in which the ground is contained. This is 'cause Unity has layers for every object.
