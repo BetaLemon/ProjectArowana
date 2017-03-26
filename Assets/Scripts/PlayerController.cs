@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public bool facingRight = true;             // Boolean used for knowing if the player faces Left or Right, so we can later flip the sprite.
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
     public bool jump = false;                   // Boolean that saves whether the player is jumping or not.
-    //public bool weightModeHeavy = false;        // Boolean that knows in which Weight Mode the player is in.
     public float speed;                         // Float that contains the speed at which the player moves horizontally.
     public float jumpHeight;                    // Float with the height at which the player will be able to jump.
     //[HideInInspector]
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public Rigidbody2D rb2d;                   // RigidBody2D for the player's RB2D. This is useful for position, scale, rotation, etc. of the player.
     private CapsuleCollider2D playerCollider;   // CapsuleCollide2D of the player
     private int prevWeightMode;        // This just saves the mode set for the player's weight in the previous frame.
-    private bool canChangeWeight = true;
 
     private float dist = 0.65f;                  // Maximum distance to the floor, at which the Raycast will check if we are near it.
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
@@ -33,6 +31,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public bool affectedByWind = false;
     [HideInInspector]
     public Vector2 windVector = new Vector2(0, 0);
+
+    public bool canChangeWeight;        // Variable to control if the player can change his weight. In each scene we can decide whether it's true or not.
 
     // When the game starts, this is initialized:
     void Awake()
