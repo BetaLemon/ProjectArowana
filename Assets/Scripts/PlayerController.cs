@@ -153,7 +153,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
             animator.SetBool("Running", true);
 
-
             Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
 
             // Let's check if there are obstacles
@@ -172,7 +171,13 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             }
             else
             {
+                if (rb2d.velocity.x > speed || rb2d.velocity.x < -speed)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x + desiredHorizontalSpeed.x * 0.1f, rb2d.velocity.y);
+                }
+                else
                 rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
+
             }
         }
         else {  animator.SetBool("Running", false); }
