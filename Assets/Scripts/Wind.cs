@@ -102,11 +102,11 @@ public class Wind : MonoBehaviour
     {
         triggerEnter = false;
     }
-    public void ApplyWind()
+    public void ApplyWind(PlayerController player)
     {
-        if (activated && triggerEnter && GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 0)
+        if (activated && triggerEnter && player.GetComponent<PlayerController>().WeightMode == 0)
         {
-            PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+            //PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
             player.rb2d.velocity += speedVector;
             //in case the speed goes over expected (happens a lot when iddle), turn the velocity vector back to its maximum
             if (player.rb2d.velocity.x < -maxWindSpeed) player.rb2d.velocity = new Vector2(-maxWindSpeed, player.rb2d.velocity.y);

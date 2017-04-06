@@ -197,15 +197,15 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
         //some wind spam here because my code sucks
         if (GameObject.Find("Wind1") != null)
-            GameObject.Find("Wind1").GetComponent<Wind>().ApplyWind();
+            GameObject.Find("Wind1").GetComponent<Wind>().ApplyWind(this);
         if (GameObject.Find("Wind2") != null)
-            GameObject.Find("Wind2").GetComponent<Wind>().ApplyWind();
+            GameObject.Find("Wind2").GetComponent<Wind>().ApplyWind(this);
         if (GameObject.Find("Wind3") != null)
-            GameObject.Find("Wind3").GetComponent<Wind>().ApplyWind();
+            GameObject.Find("Wind3").GetComponent<Wind>().ApplyWind(this);
         if (GameObject.Find("Wind4") != null)
-            GameObject.Find("Wind4").GetComponent<Wind>().ApplyWind();
+            GameObject.Find("Wind4").GetComponent<Wind>().ApplyWind(this);
         if (GameObject.Find("Wind5") != null)
-            GameObject.Find("Wind5").GetComponent<Wind>().ApplyWind();
+            GameObject.Find("Wind5").GetComponent<Wind>().ApplyWind(this);
     }
 
     void Flip()     // As the name indicates, this function flips the sprite vertically. d->b | b->d
