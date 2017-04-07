@@ -35,13 +35,14 @@ public class Dialogue : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return)) //Press "Enter" key
         {
             if (!_isDialoguePlaying){ //Don't call the corutine unless it's available.
-                _isDialoguePlaying = true; //The boolean will stop the corutine from being called again.
+                _isDialoguePlaying = true; //The boolean will stop the StartDialogue() corutine from being called again.
                 StartCoroutine(StartDialogue()); //Starts the coroutine for displaying the string with the index we want.
             }
         }
 	}
 
-    private IEnumerator StartDialogue()
+    //Async thread "IEnumeratorCalls (or not) the DisplayString() cororutine which displays the currentDialogueIndex's strings:
+    private IEnumerator StartDialogue() 
     {
         int dialogueLength = DialogueStrings.Length;
         int currentDialogueIndex = 0;
@@ -55,7 +56,7 @@ public class Dialogue : MonoBehaviour
 
                 if (currentDialogueIndex >= dialogueLength)
                 {
-                    _isEndOfDialogue = true;
+                    _isEndOfDialogue = true; //Usefull for showing a different icon on the box for ending the conversation.
                 }
             }
 
@@ -72,7 +73,8 @@ public class Dialogue : MonoBehaviour
             yield return 0;
         }
 
-        HideIcons();
+        HideIcons(); //Hides icons while this coroutine is active, the icons won't show.
+        //Resetting the following values because they are no longer true at this point:
         _isEndOfDialogue = false;
         _isDialoguePlaying = false;
     }
@@ -108,7 +110,7 @@ public class Dialogue : MonoBehaviour
                 break;
             }
         }
-
+        //We reached the end of a dialogue string:
         ShowIcon();
 
         while (true) //Pausa el dialogo cuando todo el string ha sido revelado
@@ -122,20 +124,19 @@ public class Dialogue : MonoBehaviour
         }
 
         HideIcons();
-
         _isStringBeingRevealed = false;
         _textComponent.text = ""; //Emptying the display text in order to not conflict with the following iteration of characters.
     }
 
-    private void HideIcons()
+    private void HideIcons() //Sets the activity of the icons to false (hiding them)
     {
         ContinueIcon.SetActive(false);
         StopIcon.SetActive(false);
     }
 
-    private void ShowIcon()
+    private void ShowIcon() //Sets the activity of the icons to true (showing them)
     {
-        if (_isEndOfDialogue)
+        if (_isEndOfDialogue) //Only if we reached the end of the whole DialogueStrings array.
         {
             StopIcon.SetActive(true);
             return;
