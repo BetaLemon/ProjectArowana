@@ -20,7 +20,7 @@ public class MenuScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        imageBG.rectTransform.localScale = new Vector2(Screen.width +2, Screen.height);
+        imageBG.rectTransform.localScale = new Vector2(Screen.width + 2, Screen.height);
         //this just activated the buttons
         startButton.onClick.AddListener(StartButton);
         optionsButton.onClick.AddListener(OptionsButton);
