@@ -10,6 +10,7 @@ public class Door : MonoBehaviour {
     
     public ImageFader fadeImage;
     private Animator animator;
+    public int nextLevel;
     void Start () {
         animator = GetComponent<Animator>();
 	}
@@ -23,8 +24,9 @@ public class Door : MonoBehaviour {
     {
         if (GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
-            fadeImage.scenefinish = true;
+            fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
+            fadeImage.scenefinish = true;
         }
     }
 }

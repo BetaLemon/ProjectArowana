@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             animator.SetBool("Running", false);
             animator.SetBool("Falling", true);
         }
-
         rayCastHit2D = Physics2D.Raycast(transform.position, dir.normalized, dist, layerGround);  // Saves the collision with the ground (or the not collision).
         //Debug.Log(rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null, rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null);
         Debug.DrawRay(transform.position, dir * dist, Color.red, 0.1f);     // Draws the Raycast in form of a red line in the "Scene" tab of the Unity Editor.
@@ -114,12 +113,12 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                     break;
                 case 1:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
-                    rb2d.gravityScale = (float)1;                 // This is how much the gravity attracts.
+                    rb2d.gravityScale = (float)5;                 // This is how much the gravity attracts.
                     jumpHeight = 8;
                     break;
                 case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
-                    rb2d.gravityScale = (float)0.7;                 // This is how much the gravity attracts.
+                    rb2d.gravityScale = (float)1.5;                 // This is how much the gravity attracts.
                     jumpHeight = 13;
                     speed = 8;
                     break;
