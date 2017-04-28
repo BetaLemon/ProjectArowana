@@ -5,6 +5,10 @@ using System.Collections;
 // Every script is formed by one single class: (it is required that the filename is the same as the class' name, just like in Octave)
 public class PlayerController : MonoBehaviour { // I don't know what MonoBehaviour means, just that Unity generates this automatically.
 
+    [HideInInspector]
+    public static PlayerController instance;
+
+
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
     public bool facingRight = true;             // Boolean used for knowing if the player faces Left or Right, so we can later flip the sprite.
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
@@ -37,6 +41,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     // When the game starts, this is initialized:
     void Awake()
     {
+        instance = this;
+
         rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
         playerCollider = GetComponent<CapsuleCollider2D>();
 
