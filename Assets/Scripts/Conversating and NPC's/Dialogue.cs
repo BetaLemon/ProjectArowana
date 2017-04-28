@@ -22,27 +22,29 @@ public class Dialogue : MonoBehaviour
     public GameObject StopIcon;
 
     //INICIAIZATION
-    void Start () {
+    void Start()
+    {
         _textComponent = GetComponent<Text>();
         _textComponent.text = ""; //Emptying text display just for good measure.
 
         HideIcons();
     }
-	
+
     //UPDATE ONCE PER FRAME
-	void Update ()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return)) //Press "Enter" key
         {
-            if (!_isDialoguePlaying){ //Don't call the corutine unless it's available.
+            if (!_isDialoguePlaying)
+            { //Don't call the corutine unless it's available.
                 _isDialoguePlaying = true; //The boolean will stop the StartDialogue() corutine from being called again.
                 StartCoroutine(StartDialogue()); //Starts the coroutine for displaying the string with the index we want.
             }
         }
-	}
+    }
 
     //Async thread "IEnumeratorCalls (or not) the DisplayString() cororutine which displays the currentConversationIndex's strings:
-    private IEnumerator StartDialogue() 
+    private IEnumerator StartDialogue()
     {
         int dialogueLength = DialogueStrings.Length;
         int currentConversationIndex = 0;
@@ -147,7 +149,7 @@ public class Dialogue : MonoBehaviour
 
 
     //Esta función puede ser llamada externamente para setear el array que se reproducirá:
-    public void SetNextTexts(string[] newTexts) 
+    public void SetNextTexts(string[] newTexts)
     {
         DialogueStrings = newTexts; //Hacer que el texto que pasemos sea el nuevo array
     }
