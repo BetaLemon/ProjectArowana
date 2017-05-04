@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 case 1:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)5;                 // This is how much the gravity attracts.
-                    jumpHeight = 8;
+                    jumpHeight = 12;
                     break;
                 case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
@@ -219,5 +219,13 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         Vector3 theScale = transform.localScale;    // theScale saves the current scale of the player.
         theScale.x *= -1;                           // This modifies it to switch from left to right or viceversa.
         transform.localScale = theScale;            // This updates the player's scale to the one we've calculated.
+    }
+
+    public void GivePowers()
+    {
+       canChangeWeight = true;
+       WeightMode = 2; // -> Heavy
+       animator.SetBool("Heavy", true);
+
     }
 }
