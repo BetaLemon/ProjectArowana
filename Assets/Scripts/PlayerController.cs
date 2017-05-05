@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public static PlayerController instance;
 
 
+    public AudioSource jumpSound;
+    public AudioSource fallSound;
+
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
     public bool facingRight = true;             // Boolean used for knowing if the player faces Left or Right, so we can later flip the sprite.
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     public bool canChangeWeight;        // Variable to control if the player can change his weight. In each scene we can decide whether it's true or not.
 
+
     // When the game starts, this is initialized:
     void Awake()
     {
@@ -66,14 +70,16 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         //Debug.Log(rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null, rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null);
         Debug.DrawRay(transform.position, dir * dist, Color.red, 0.1f);     // Draws the Raycast in form of a red line in the "Scene" tab of the Unity Editor.
 
+        bool temp = grounded;
         grounded = rayCastHit2D.collider != null;   // If the collider that the Raycast detected is null, then the statement will be false, and thus grounded too.
-                                                    // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
-
+                                                   // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
+        if (!temp && grounded)
+            fallSound.Play();
         if (Input.GetButtonDown("Jump") && grounded)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
             //animator.SetBool("Jumping", true);
-            jump = true;        // Set true the jumo bool.
-            print(grounded);    // Print "Jumped" just for debugging purposes. This needs to be removed in the final game.
+            jump = true;        // Set true the jump bool.
+            
         }
 
         if (Input.GetButtonDown("Weight") && canChangeWeight)          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
@@ -114,12 +120,12 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                 case 1:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)5;                 // This is how much the gravity attracts.
-                    jumpHeight = 12;
+                    jumpHeight = 18;
                     break;
                 case 0:
                     rb2d.mass = 5;                                  // ... we set the mass to 5.
                     rb2d.gravityScale = (float)1.5;                 // This is how much the gravity attracts.
-                    jumpHeight = 13;
+                    jumpHeight = 15;
                     speed = 8;
                     break;
             }
@@ -198,6 +204,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         { 
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
             jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
+            jumpSound.Play();
         }
 
         //some wind spam here because my code sucks
