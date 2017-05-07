@@ -7,6 +7,7 @@ public class JellyBox : MonoBehaviour {
     public Sprite idle; // Drag your first sprite here
     public Sprite crushed; // Drag your second sprite here
     public int jumpSpeed;
+    public AudioSource effect;
     private bool crush = false;
     private bool collisionEnter;
     private int prevState;
@@ -42,6 +43,7 @@ public class JellyBox : MonoBehaviour {
                 player.rb2d.velocity += new Vector2(0, jumpSpeed);
                     
                 animator.SetBool("uncrush", true);
+                effect.Play();
                 crush = false;
             }
         }

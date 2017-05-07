@@ -10,6 +10,7 @@ public class SwitchScript : MonoBehaviour {
     private bool triggerEnter;
     private Animator animator;
     private bool activated = false;
+    public AudioSource effect;
 	void Start () {
         animator = GetComponent<Animator>();
 	}
@@ -19,22 +20,29 @@ public class SwitchScript : MonoBehaviour {
     {
         if (Input.GetButtonDown("Switch") && triggerEnter && platformSwitch)
         {
+            //activa o desactiva las plataformas que se mueven
             activableObject.GetComponent<MovingPlatform>().activated = !activableObject.GetComponent<MovingPlatform>().activated;
+           
         }
 
         else if (Input.GetButtonDown("Switch") && triggerEnter && !platformSwitch)
         {
+            //activa o desactiva los ventiladores
             activableObject.GetComponent<Wind>().activated = !activableObject.GetComponent<Wind>().activated;
 
         }
 
         if (Input.GetButtonDown("Switch") && triggerEnter && !activated)
         {
+            //animacion a activarse
             animator.SetBool("Activated", true);
+            effect.Play();
             activated = true;
         }
         else if (Input.GetButtonDown("Switch") && triggerEnter & activated) {
+            //animacion a desactivarse
             animator.SetBool("Activated", false);
+            effect.Play();
             activated = false;
         }
 

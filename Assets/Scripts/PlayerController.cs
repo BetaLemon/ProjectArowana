@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         {
             //animator.SetBool("Jumping", true);
             jump = true;        // Set true the jump bool.
-            
+            jumpSound.Play();
+
         }
 
         if (Input.GetButtonDown("Weight") && canChangeWeight)          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
@@ -204,7 +205,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         { 
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
             jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
-            jumpSound.Play();
+            
         }
 
         //some wind spam here because my code sucks
