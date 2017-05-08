@@ -10,10 +10,13 @@ public class JellyBox : MonoBehaviour {
     public AudioSource effect;
     private bool crush = false;
     private bool collisionEnter;
+    private bool changedCol;
     private int prevState;
     private SpriteRenderer spriteRenderer;
     Animator animator;
-
+    
+    GameObject idleCollider;
+    GameObject crushedCollider;
     void Start () {
 
         spriteRenderer = GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -26,16 +29,25 @@ public class JellyBox : MonoBehaviour {
         collisionEnter = false;
         if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
             spriteRenderer.sprite = idle; // set the sprite to sprite1
-}
-	
-	// Update is called once per frame
-	void Update () {
+
+        idleCollider = transform.FindChild("Idle_Collider").gameObject;
+        crushedCollider = transform.FindChild("Crushed_Collider").gameObject;
+        crushedCollider.SetActive(false);
+
+        changedCol = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (collisionEnter)
         {
             if (GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 2)
             {
                 crush = true;
                 animator.SetBool("crushed", true);
+                idleCollider.SetActive(false);
+                crushedCollider.SetActive(true);
+                changedCol = false;
             }
             else if (crush && prevState != GameObject.Find("Player").GetComponent<PlayerController>().WeightMode)
             {
@@ -47,11 +59,18 @@ public class JellyBox : MonoBehaviour {
                 crush = false;
             }
         }
-  
+        else if (!changedCol)
+        {
+            idleCollider.SetActive(true);
+            crushedCollider.SetActive(false);
+            changedCol = true;
+        }
         prevState = GameObject.Find("Player").GetComponent<PlayerController>().WeightMode;
+        
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if(GameObject.Find("Player").GetComponent<PlayerController>().transform.position.y > this.transform.position.y)
         collisionEnter = true;
     }
