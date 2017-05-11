@@ -13,6 +13,7 @@ public class Dialogue : MonoBehaviour
     public float CharacterRateMultiplier = 0.5f; //How much faster the text should go when the player holds down a key.
 
     public KeyCode DialogueInput = KeyCode.Return; //The key that will speed up dialogue.
+    bool startTheDialogue = false;
 
     private bool _isStringBeingRevealed = false; //Makes sure the coroutine isn't being called multiple times while it's being run.
     private bool _isDialoguePlaying = false;

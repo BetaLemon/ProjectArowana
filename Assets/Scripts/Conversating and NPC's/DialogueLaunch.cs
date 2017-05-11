@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class DialogueLaunch : MonoBehaviour
 {
-    bool autoLaunchDialog = true;
-
+    bool nowPressEnter = true;
+    public KeyCode DialogueInput = KeyCode.Return; //The key that will speed up dialogue.
     private void OnTriggerEnter2D(Collider2D other) //Función que ejecuta la caja de texto al triggear la colision del npc
     {
-        if (other.gameObject == PlayerController.instance.gameObject)
+        
+        if (other.gameObject == PlayerController.instance.gameObject) //Si el objeto que ha causado la colision es Kloe
+        {
+            nowPressEnter = true; //Ahora si podemos pulsar enter para activar el dialogo desde el update
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) //Salimos de la colision, por lo tanto no se puede pulsar enter para activar el dialogo
+    {
+        nowPressEnter = false;
+    }
+
+    private void Update()
+    {
+        if (nowPressEnter && Input.GetKeyDown(KeyCode.Return)) //Comprobar si se ha pulsado enter mientras estabamos dentro de la colision
         {
             Conversation conversation = GetComponentInChildren<Conversation>();
             Panel.instance.PlayConversation(conversation);
