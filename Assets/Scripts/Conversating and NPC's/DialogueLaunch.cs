@@ -23,8 +23,8 @@ public class DialogueLaunch : MonoBehaviour
     {
         if (nowPressEnter && Input.GetKeyDown(KeyCode.Return)) //Comprobar si se ha pulsado enter mientras estabamos dentro de la colision
         {
-            Conversation conversation = GetComponentInChildren<Conversation>();
-            Panel.instance.PlayConversation(conversation);
+            Conversation conversation = GetComponentInChildren<Conversation>(); //Recoge el elemento de conversacion del npc al qual va adjudicado este script
+            Panel.instance.PlayConversation(conversation); //Ejecuta la funcion de reproducir conversacion en el Panel con la conversacion que hemos recogido
         }
     }
 }
