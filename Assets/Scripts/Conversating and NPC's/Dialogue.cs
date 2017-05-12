@@ -34,8 +34,9 @@ public class Dialogue : MonoBehaviour
     //UPDATE ONCE PER FRAME
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)) //Press "Enter" key
+        if (startTheDialogue) //The enter key was pressed from the DialogueLaunch.cs consequently triggering the corresponding functions which start the text.
         {
+            startTheDialogue = false; //Parar el comienzo de dialogo, no sea que vuelva a entrar en este if.
             if (!_isDialoguePlaying)
             { //Don't call the corutine unless it's available.
                 _isDialoguePlaying = true; //The boolean will stop the StartDialogue() corutine from being called again.
@@ -153,5 +154,6 @@ public class Dialogue : MonoBehaviour
     public void SetNextTexts(string[] newTexts)
     {
         DialogueStrings = newTexts; //Hacer que el texto que pasemos sea el nuevo array
+        startTheDialogue = true;
     }
 }
