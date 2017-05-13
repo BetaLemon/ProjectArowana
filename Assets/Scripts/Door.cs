@@ -11,6 +11,7 @@ public class Door : MonoBehaviour {
     public ImageFader fadeImage;
     private Animator animator;
     public int nextLevel;
+    public bool autoActivate;
     void Start () {
         animator = GetComponent<Animator>();
 	}
@@ -22,7 +23,13 @@ public class Door : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
+        if (collision.tag == "Player" && GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
+        {
+            fadeImage.nextScene = nextLevel;
+            animator.SetBool("Open", true);
+            fadeImage.scenefinish = true;
+        }
+        else if (collision.tag == "Player" && autoActivate)
         {
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
