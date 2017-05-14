@@ -16,6 +16,15 @@ public class Panel : MonoBehaviour
         instance = this;
         gameObject.SetActive(false); //Asegura que no se muestra el panel primero
         dialogue = GetComponentInChildren<Dialogue>(); //Asigna el dialogo
+        sentencesAmmount = currentConversation.sentences.Length;
+    }
+
+    private void Update()
+    {
+        if (currentSentence == sentencesAmmount)
+        {
+            dialogue.ThereAreNoMoreDialogues();
+        }
     }
 
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
@@ -41,21 +50,21 @@ public class Panel : MonoBehaviour
         gameObject.SetActive(what);
     }
 
-    //public void NotifyTextsFinished()
-    //{
-    //    currentSentence++;
-    //    if (SHADEFER("Faltan textos por mostrar"))
-    //    {
-    //        DoPlayCurrentSentence();
-    //    }
-    //}
+    public void NotifyTextsFinished()
+    {
+          currentSentence++;
+          if (sentencesAmmount > currentSentence)
+          {
+              DoPlayCurrentSentence();
+          }
+    }
 
     void DoPlayCurrentSentence() //Establece en el Dialogue.cs los datos de la conversacion y la ejecuta.
     {
         //SHADEFER("Cambiar el texto con el nombre del personaje que habla");
         //SHADEFER("Cambiar el grafico del personaje que habla");
         //Cambiar conversacion actual:
-        dialogue.SetNextTexts(currentConversation.sentences[0].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
+        dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
     }
 
     void BreakConversation() //Ordena a Dialogue.cs que pare la conversacion.

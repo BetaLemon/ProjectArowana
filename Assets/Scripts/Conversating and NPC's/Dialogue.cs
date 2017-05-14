@@ -159,6 +159,7 @@ public class Dialogue : MonoBehaviour
 
     private void ResetDialogue() //Restablece todo a 0 para que se pueda reproducir un dialogo diferente, ya sea porque el anterior ha terminado o porque salimos de la colision del npc
     {
+        Panel.instance.NotifyTextsFinished();
         HideIcons();
         _isStringBeingRevealed = false;
         _textComponent.text = ""; //Emptying the display text in order to not conflict with the following iteration of characters.
