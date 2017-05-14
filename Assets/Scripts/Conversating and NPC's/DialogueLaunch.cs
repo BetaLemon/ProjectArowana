@@ -17,6 +17,7 @@ public class DialogueLaunch : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) //Salimos de la colision, por lo tanto no se puede pulsar enter para activar el dialogo
     {
         nowPressEnter = false;
+        Panel.instance.StopConversation(); 
     }
 
     private void Update()

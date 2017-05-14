@@ -10,10 +10,13 @@ public class Dialogue : MonoBehaviour
     public string[] DialogueStrings; //All possible dialogues we wish to display
 
     public float SecondsBetweenCharacters = 0.03f; //Delay between character's being shown on the text display.
-    public float CharacterRateMultiplier = 0.5f; //How much faster the text should go when the player holds down a key.
+    public float CharacterRateMultiplier = 0.05f; //How much faster the text should go when the player holds down a key. (The lower the faster)
 
     public KeyCode DialogueInput = KeyCode.Return; //The key that will speed up dialogue.
     bool startTheDialogue = false;
+
+    private bool _readyToCloseBox = false;
+    private bool _noMoreDialogues = false;
 
     private bool _isStringBeingRevealed = false; //Makes sure the coroutine isn't being called multiple times while it's being run.
     private bool _isDialoguePlaying = false;
@@ -44,7 +47,6 @@ public class Dialogue : MonoBehaviour
             }
         }
     }
-
     //Async thread "IEnumeratorCalls (or not) the DisplayString() cororutine which displays the currentConversationIndex's strings:
     private IEnumerator StartDialogue()
     {
@@ -109,6 +111,11 @@ public class Dialogue : MonoBehaviour
                     yield return new WaitForSeconds(SecondsBetweenCharacters); //The normal delay.
                 }
             }
+            else if (_readyToCloseBox && Input.GetKey(DialogueInput))
+            {
+                KillTheFuckingBox();
+                break;
+            }
             else
             {
                 break;
@@ -127,10 +134,10 @@ public class Dialogue : MonoBehaviour
             yield return 0;
         }
 
-        HideIcons();
-        _isStringBeingRevealed = false;
-        _textComponent.text = ""; //Emptying the display text in order to not conflict with the following iteration of characters.
+        ResetDialogue(); //       (> FIN DEL DIALOGO <)
     }
+
+
 
     private void HideIcons() //Sets the activity of the icons to false (hiding them)
     {
@@ -140,8 +147,9 @@ public class Dialogue : MonoBehaviour
 
     private void ShowIcon() //Sets the activity of the icons to true (showing them)
     {
-        if (_isEndOfDialogue) //Only if we reached the end of the whole DialogueStrings array.
+        if (_isEndOfDialogue && _noMoreDialogues) //Only if we reached the end of the whole DialogueStrings array and there are no more dialogues (more people wanting to speak).
         {
+            _readyToCloseBox = true;
             StopIcon.SetActive(true);
             return;
         }
@@ -149,11 +157,37 @@ public class Dialogue : MonoBehaviour
         ContinueIcon.SetActive(true);
     }
 
+    private void ResetDialogue() //Restablece todo a 0 para que se pueda reproducir un dialogo diferente, ya sea porque el anterior ha terminado o porque salimos de la colision del npc
+    {
+        HideIcons();
+        _isStringBeingRevealed = false;
+        _textComponent.text = ""; //Emptying the display text in order to not conflict with the following iteration of characters.
+    }
+
+    private void KillTheFuckingBox() //Hace desaparecer el panel y termina la conversacion
+    {
+        Panel.instance.PanelActivation(false);
+        StopConversation();
+    }
 
     //Esta función puede ser llamada externamente para setear el array que se reproducirá:
     public void SetNextTexts(string[] newTexts)
     {
         DialogueStrings = newTexts; //Hacer que el texto que pasemos sea el nuevo array
         startTheDialogue = true;
+    }
+
+    public void ThereAreNoMoreDialogues()
+    {
+        _noMoreDialogues = true;
+    }
+
+    public void StopConversation()
+    {
+        ResetDialogue();
+        _isStringBeingRevealed = false;
+        _isDialoguePlaying = false;
+        _isEndOfDialogue = false;
+        _noMoreDialogues = false;
     }
 }

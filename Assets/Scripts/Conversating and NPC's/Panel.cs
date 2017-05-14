@@ -7,6 +7,7 @@ public class Panel : MonoBehaviour
     public static Panel instance;
     Conversation currentConversation;
     Dialogue dialogue; //
+    int sentencesAmmount;
     int currentSentence;
 
 
@@ -20,12 +21,24 @@ public class Panel : MonoBehaviour
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
     {
         currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.
-        Debug.Log("Will play " + conversation.gameObject.name);
-        gameObject.SetActive(true); //Muestra el panel
+        PanelActivation(true); //Muestra el panel
 
         currentSentence = 0;
 
         DoPlayCurrentSentence();
+    }
+
+    public void StopConversation()
+    {
+        currentConversation = null;
+        PanelActivation(false); //Esconde el panel
+
+        BreakConversation();
+    }
+
+    public void PanelActivation(bool what) //Activar o desactivar panel
+    {
+        gameObject.SetActive(what);
     }
 
     //public void NotifyTextsFinished()
@@ -37,11 +50,17 @@ public class Panel : MonoBehaviour
     //    }
     //}
 
-    void DoPlayCurrentSentence()
+    void DoPlayCurrentSentence() //Establece en el Dialogue.cs los datos de la conversacion y la ejecuta.
     {
         //SHADEFER("Cambiar el texto con el nombre del personaje que habla");
         //SHADEFER("Cambiar el grafico del personaje que habla");
+        //Cambiar conversacion actual:
         dialogue.SetNextTexts(currentConversation.sentences[0].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
+    }
+
+    void BreakConversation() //Ordena a Dialogue.cs que pare la conversacion.
+    {
+        dialogue.StopConversation();
     }
 
 }
