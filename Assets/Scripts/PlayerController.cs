@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     private Vector2 dir = new Vector2(0,-1);    // Direction at which the Raycast has to look. In this is case, this is down (-y).
 
     public LayerMask layerGround;                       // This saves the layer in which the ground is contained. This is 'cause Unity has layers for every object.
-    RaycastHit2D rayCastHit2D = new RaycastHit2D();     // Checks if the Raycast has hit the ground.
-
+    RaycastHit2D rayCastHit2D1 = new RaycastHit2D();     // Checks if the Raycast has hit the ground.
+    RaycastHit2D rayCastHit2D2 = new RaycastHit2D();     // Checks if the Raycast has hit the ground.
     Animator animator;  //Reference to the animator component attatched to the player Kloe Game Object
 
     [HideInInspector]
@@ -66,12 +66,21 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             animator.SetBool("Running", false);
             animator.SetBool("Falling", true);
         }
-        rayCastHit2D = Physics2D.Raycast(transform.position, dir.normalized, dist, layerGround);  // Saves the collision with the ground (or the not collision).
+        Vector3 d = new Vector3(playerCollider.GetComponent<CapsuleCollider2D>().size.x / 2, 0, 0);
+        rayCastHit2D1 = Physics2D.Raycast(transform.position + d, dir.normalized, dist, layerGround);  // Saves the collision with the ground (or the not collision).
+        rayCastHit2D2 = Physics2D.Raycast(transform.position - d, dir.normalized, dist, layerGround);  // Saves the collision with the ground (or the not collision).
+
+
         //Debug.Log(rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null, rayCastHit2D.collider != null ? rayCastHit2D.collider.gameObject : null);
         Debug.DrawRay(transform.position, dir * dist, Color.red, 0.1f);     // Draws the Raycast in form of a red line in the "Scene" tab of the Unity Editor.
 
         bool temp = grounded;
-        grounded = rayCastHit2D.collider != null;   // If the collider that the Raycast detected is null, then the statement will be false, and thus grounded too.
+        if (rayCastHit2D1.collider != null || rayCastHit2D2.collider != null)
+        {
+            grounded = true;
+        }
+        else grounded = false;
+        // If the collider that the Raycast detected is null, then the statement will be false, and thus grounded too.
                                                    // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
         if (!temp && grounded)
             fallSound.Play();
