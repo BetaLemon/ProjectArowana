@@ -19,14 +19,6 @@ public class Panel : MonoBehaviour
         sentencesAmmount = currentConversation.sentences.Length;
     }
 
-    private void Update()
-    {
-        if (currentSentence == sentencesAmmount)
-        {
-            dialogue.ThereAreNoMoreDialogues();
-        }
-    }
-
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
     {
         currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.

@@ -15,9 +15,6 @@ public class Dialogue : MonoBehaviour
     public KeyCode DialogueInput = KeyCode.Return; //The key that will speed up dialogue.
     bool startTheDialogue = false;
 
-    private bool _readyToCloseBox = false;
-    private bool _noMoreDialogues = false;
-
     private bool _isStringBeingRevealed = false; //Makes sure the coroutine isn't being called multiple times while it's being run.
     private bool _isDialoguePlaying = false;
     private bool _isEndOfDialogue = false;
@@ -79,10 +76,10 @@ public class Dialogue : MonoBehaviour
             yield return 0;
         }
 
-        HideIcons(); //Hides icons while this coroutine is active, the icons won't show.
-        //Resetting the following values because they are no longer true at this point:
-        _isEndOfDialogue = false;
-        _isDialoguePlaying = false;
+        ResetDialogue();
+        Panel.instance.NotifyTextsFinished();
+        KillTheFuckingBox();
+
     }
 
     //Async thread "IEnumerator for adding characters to the current text being displayed. Because this needs a delay between characters, we are creating an IEnumerator "thread" for it:
@@ -110,11 +107,6 @@ public class Dialogue : MonoBehaviour
                 {
                     yield return new WaitForSeconds(SecondsBetweenCharacters); //The normal delay.
                 }
-            }
-            else if (_readyToCloseBox && Input.GetKey(DialogueInput))
-            {
-                KillTheFuckingBox();
-                break;
             }
             else
             {
@@ -147,9 +139,8 @@ public class Dialogue : MonoBehaviour
 
     private void ShowIcon() //Sets the activity of the icons to true (showing them)
     {
-        if (_isEndOfDialogue && _noMoreDialogues) //Only if we reached the end of the whole DialogueStrings array and there are no more dialogues (more people wanting to speak).
+        if (_isEndOfDialogue) //Only if we reached the end of the whole DialogueStrings array and there are no more dialogues (more people wanting to speak).
         {
-            _readyToCloseBox = true;
             StopIcon.SetActive(true);
             return;
         }
@@ -159,7 +150,6 @@ public class Dialogue : MonoBehaviour
 
     private void ResetDialogue() //Restablece todo a 0 para que se pueda reproducir un dialogo diferente, ya sea porque el anterior ha terminado o porque salimos de la colision del npc
     {
-        Panel.instance.NotifyTextsFinished();
         HideIcons();
         _isStringBeingRevealed = false;
         _textComponent.text = ""; //Emptying the display text in order to not conflict with the following iteration of characters.
@@ -178,17 +168,11 @@ public class Dialogue : MonoBehaviour
         startTheDialogue = true;
     }
 
-    public void ThereAreNoMoreDialogues()
-    {
-        _noMoreDialogues = true;
-    }
-
-    public void StopConversation()
+    public void StopConversation() //Para la conversacion y restablece booleanos a false para que no se quede a medias
     {
         ResetDialogue();
         _isStringBeingRevealed = false;
         _isDialoguePlaying = false;
         _isEndOfDialogue = false;
-        _noMoreDialogues = false;
     }
 }
