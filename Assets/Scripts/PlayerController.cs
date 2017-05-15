@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     [HideInInspector]
     public static PlayerController instance;
 
-
     public AudioSource jumpSound;
     public AudioSource fallSound;
 

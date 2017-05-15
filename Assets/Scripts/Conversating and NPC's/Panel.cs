@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Panel : MonoBehaviour
 {
     public static Panel instance;
+
     Conversation currentConversation;
     Dialogue dialogue; //
     int sentencesAmmount;
@@ -44,11 +47,12 @@ public class Panel : MonoBehaviour
 
     public void NotifyTextsFinished()
     {
-          currentSentence++;
-          if (sentencesAmmount > currentSentence)
-          {
-              DoPlayCurrentSentence();
-          }
+        currentSentence++;
+        if (sentencesAmmount > currentSentence)
+        {
+            dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
+            DoPlayCurrentSentence();
+        }
     }
 
     void DoPlayCurrentSentence() //Establece en el Dialogue.cs los datos de la conversacion y la ejecuta.

@@ -7,6 +7,8 @@ public class Dialogue : MonoBehaviour
 {
     private Text _textComponent; //We save the text we want to write to the text component here
 
+    public AudioSource TextSound;
+
     public string[] DialogueStrings; //All possible dialogues we wish to display
 
     public float SecondsBetweenCharacters = 0.03f; //Delay between character's being shown on the text display.
@@ -94,6 +96,7 @@ public class Dialogue : MonoBehaviour
 
         while (currentCharacterIndex < stringLength)
         {
+            TextSound.Play();
             _textComponent.text += stringToDisplay[currentCharacterIndex]; //Adding a character to the display text.
             currentCharacterIndex++; //Next character please
 

@@ -5,7 +5,9 @@ using UnityEngine;
 public class DialogueLaunch : MonoBehaviour
 {
     bool nowPressEnter = true;
+
     public KeyCode DialogueInput = KeyCode.Return; //The key that will speed up dialogue.
+
     private void OnTriggerEnter2D(Collider2D other) //Función que ejecuta la caja de texto al triggear la colision del npc
     {
         
