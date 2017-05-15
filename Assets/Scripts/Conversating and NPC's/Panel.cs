@@ -19,7 +19,7 @@ public class Panel : MonoBehaviour
         instance = this;
         gameObject.SetActive(false); //Asegura que no se muestra el panel primero
         dialogue = GetComponentInChildren<Dialogue>(); //Asigna el dialogo
-        sentencesAmmount = currentConversation.sentences.Length;
+        //sentencesAmmount = currentConversation.sentences.Length;
     }
 
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
@@ -45,13 +45,17 @@ public class Panel : MonoBehaviour
         gameObject.SetActive(what);
     }
 
-    public void NotifyTextsFinished()
+    public void NextSentencePlease() //Used by Dialogue for requesting the next sentence.
     {
         currentSentence++;
         if (sentencesAmmount > currentSentence)
         {
             dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
             DoPlayCurrentSentence();
+        }
+        else if (sentencesAmmount == currentSentence) //No more sentences left to send
+        {
+            dialogue.NoMoreSentencesLeft();
         }
     }
 

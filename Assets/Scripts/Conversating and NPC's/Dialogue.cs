@@ -20,7 +20,7 @@ public class Dialogue : MonoBehaviour
     private bool _isStringBeingRevealed = false; //Makes sure the coroutine isn't being called multiple times while it's being run.
     private bool _isDialoguePlaying = false;
     private bool _isEndOfDialogue = false;
-
+    private bool _noMoreSentencesLeft = false;
     public GameObject ContinueIcon;
     public GameObject StopIcon;
 
@@ -78,10 +78,16 @@ public class Dialogue : MonoBehaviour
             yield return 0;
         }
 
-        ResetDialogue();
-        Panel.instance.NotifyTextsFinished();
-        KillTheFuckingBox();
+        ResetDialogue(); //Resets the current chunk of dialogues we are displaying (Presumably the full speech of a speaking character)
 
+        if (!_noMoreSentencesLeft) //We will know if there are any sentences left as the Panel.cs tells us... if there are still sentences left...
+        {
+            Panel.instance.NextSentencePlease(); //Requesting next sentence to be played
+        }
+        else if (_noMoreSentencesLeft) //No more sentences left! Let's get out of here!
+        {
+            KillTheFuckingBox(); //Killing the fucking box once and for all (Not really, but at least for now)
+        }
     }
 
     //Async thread "IEnumerator for adding characters to the current text being displayed. Because this needs a delay between characters, we are creating an IEnumerator "thread" for it:
@@ -129,7 +135,7 @@ public class Dialogue : MonoBehaviour
             yield return 0;
         }
 
-        ResetDialogue(); //       (> FIN DEL DIALOGO <)
+        ResetDialogue(); //       (> CURRENT DIALOGUE END <)
     }
 
 
@@ -164,6 +170,11 @@ public class Dialogue : MonoBehaviour
         StopConversation();
     }
 
+    public void NoMoreSentencesLeft() //Used by Panel.cs in order to tell Dialogue.cs that no more sentences are going to be sent, as there are none left, usefull for knowing if we should stop the conversation and kill the fucking box.
+    {
+        _noMoreSentencesLeft = true;
+    }
+
     //Esta función puede ser llamada externamente para setear el array que se reproducirá:
     public void SetNextTexts(string[] newTexts)
     {
@@ -177,5 +188,6 @@ public class Dialogue : MonoBehaviour
         _isStringBeingRevealed = false;
         _isDialoguePlaying = false;
         _isEndOfDialogue = false;
+        _noMoreSentencesLeft = false;
     }
 }
