@@ -113,7 +113,6 @@ public class Wind : MonoBehaviour
             else if (player.rb2d.velocity.x > maxWindSpeed) player.rb2d.velocity = new Vector2(maxWindSpeed, player.rb2d.velocity.y);
             else if (player.rb2d.velocity.y < -maxWindSpeed) player.rb2d.velocity = new Vector2(player.rb2d.velocity.x, -maxWindSpeed);
             else if (player.rb2d.velocity.y > maxWindSpeed) player.rb2d.velocity = new Vector2(player.rb2d.velocity.x, maxWindSpeed);
-
         }
     }
 }
