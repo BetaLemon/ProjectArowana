@@ -56,7 +56,6 @@ public class Wind : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (triggerEnter && activated && triggerEnter && GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 0)
         {
             if (speedAdded < maxWindSpeed)
