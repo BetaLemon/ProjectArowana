@@ -21,8 +21,18 @@ public class JellyBoxChildColliders : MonoBehaviour {
     {
         parent.SendMessage("OnCollisionEnter2D", collision);
     }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         parent.SendMessage("OnCollisionExit2D", collision);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        parent.SendMessage("OnTriggerEnter2D", collision);
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        parent.SendMessage("OnTriggerExit2D", collision);
     }
 }

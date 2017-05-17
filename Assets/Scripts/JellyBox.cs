@@ -45,6 +45,7 @@ public class JellyBox : MonoBehaviour {
             {
                 crush = true;
                 animator.SetBool("crushed", true);
+                animator.SetBool("uncrush", false);
                 idleCollider.SetActive(false);
                 crushedCollider.SetActive(true);
                 changedCol = false;
@@ -55,8 +56,11 @@ public class JellyBox : MonoBehaviour {
                 player.rb2d.velocity += new Vector2(0, jumpSpeed);
                     
                 animator.SetBool("uncrush", true);
+                animator.SetBool("crushed", false);
                 effect.Play();
                 crush = false;
+
+                changedCol = false;
             }
         }
         else if (!changedCol)
@@ -64,7 +68,10 @@ public class JellyBox : MonoBehaviour {
             idleCollider.SetActive(true);
             crushedCollider.SetActive(false);
             changedCol = true;
+            animator.SetBool("uncrush", true);
+            animator.SetBool("crushed", false);
         }
+        
         prevState = GameObject.Find("Player").GetComponent<PlayerController>().WeightMode;
         
     }
@@ -76,6 +83,18 @@ public class JellyBox : MonoBehaviour {
     }
 
     void OnCollisionExit2D(Collision2D collision)
+    {
+        collisionEnter = false;
+        animator.SetBool("crushed", false);
+        animator.SetBool("uncrush", false);
+        crush = false;
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (GameObject.Find("Player").GetComponent<PlayerController>().transform.position.y > this.transform.position.y)
+            collisionEnter = true;
+    }
+    void OnTriggerExit2D(Collider2D collision)
     {
         collisionEnter = false;
         animator.SetBool("crushed", false);
