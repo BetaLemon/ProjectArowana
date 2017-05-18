@@ -11,7 +11,7 @@ public class Panel : MonoBehaviour
     Conversation currentConversation;
     Dialogue dialogue; //
     int sentencesAmmount;
-    int currentSentence = 0;
+    int currentSentence;
 
 
     private void Awake()
@@ -27,6 +27,9 @@ public class Panel : MonoBehaviour
         PanelActivation(true); //Muestra el panel
 
         sentencesAmmount = currentConversation.sentences.Length;
+
+        currentSentence = 0;
+        Debug.Log("Current sentence: " + currentSentence);
 
         DoPlayCurrentSentence();
 
@@ -52,7 +55,7 @@ public class Panel : MonoBehaviour
 
         if (sentencesAmmount > currentSentence)
         {
-            dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
+            //dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
             DoPlayCurrentSentence();
         }
         else if (sentencesAmmount == currentSentence) //No more sentences left to send
