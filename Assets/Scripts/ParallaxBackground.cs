@@ -16,6 +16,6 @@ public class ParallaxBackground : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = new Vector3((cam.transform.position.x / 2)+10, transform.position.y, transform.position.z);
+        transform.position = new Vector3((cam.transform.position.x / 2)+10, (cam.transform.position.y / 2), transform.position.z);
     }
 }

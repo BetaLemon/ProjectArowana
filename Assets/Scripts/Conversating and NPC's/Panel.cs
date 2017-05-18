@@ -11,7 +11,7 @@ public class Panel : MonoBehaviour
     Conversation currentConversation;
     Dialogue dialogue; //
     int sentencesAmmount;
-    int currentSentence;
+    int currentSentence = 0;
 
 
     private void Awake()
@@ -26,10 +26,7 @@ public class Panel : MonoBehaviour
         currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.
         PanelActivation(true); //Muestra el panel
 
-        Debug.Log("currentConversation : " + currentConversation, currentConversation);
-        Debug.Log("currentConversation.sentences : " + currentConversation.sentences, currentConversation);
         sentencesAmmount = currentConversation.sentences.Length;
-        currentSentence = 0;
 
         DoPlayCurrentSentence();
 
@@ -51,6 +48,8 @@ public class Panel : MonoBehaviour
     public void NextSentencePlease() //Used by Dialogue for requesting the next sentence.
     {
         currentSentence++;
+        Debug.Log("Current sentence: " + currentSentence);
+
         if (sentencesAmmount > currentSentence)
         {
             dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
