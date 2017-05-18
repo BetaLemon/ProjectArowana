@@ -55,12 +55,7 @@ public class Panel : MonoBehaviour
 
         if (sentencesAmmount > currentSentence)
         {
-            //dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts);
             DoPlayCurrentSentence();
-        }
-        else if (sentencesAmmount == currentSentence) //No more sentences left to send
-        {
-            dialogue.NoMoreSentencesLeft();
         }
     }
 
@@ -70,6 +65,11 @@ public class Panel : MonoBehaviour
         //SHADEFER("Cambiar el grafico del personaje que habla");
         //Cambiar conversacion actual:
         dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
+        Debug.Log("Pasando a dialogo " + currentSentence);
+        if (sentencesAmmount == currentSentence) //No more sentences left to send
+        {
+            dialogue.NoMoreSentencesLeft();
+        }
     }
 
     void BreakConversation() //Ordena a Dialogue.cs que pare la conversacion.

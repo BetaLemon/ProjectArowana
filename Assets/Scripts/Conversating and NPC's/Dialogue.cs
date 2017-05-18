@@ -82,8 +82,10 @@ public class Dialogue : MonoBehaviour
 
         if (!_noMoreSentencesLeft) //We will know if there are any sentences left as the Panel.cs tells us... if there are still sentences left...
         {
+            _isDialoguePlaying = false;
             Debug.Log("Requesting next sentence");
             Panel.instance.NextSentencePlease(); //Requesting next sentence to be played
+            StopAllCoroutines(); //Detenemos las corutinas (Se iniciaran de nuevo porque quedan mas dialogos)
         }
         else if (_noMoreSentencesLeft) //No more sentences left! Let's get out of here!
         {
@@ -181,7 +183,6 @@ public class Dialogue : MonoBehaviour
     {
         DialogueStrings = newTexts; //Hacer que el texto que pasemos sea el nuevo array
         startTheDialogue = true;
-
     }
 
     public void StopConversation() //Para la conversacion y restablece booleanos a false para que no se quede a medias
