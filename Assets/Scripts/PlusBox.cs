@@ -18,7 +18,6 @@ public class PlusBox : MonoBehaviour {
         if (collision.tag == "Player")
         {
             collision.GetComponent<PlayerController>().PlusBoxAffected();
-            print("lol");
         }
     }
     

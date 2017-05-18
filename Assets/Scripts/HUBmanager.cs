@@ -60,7 +60,7 @@ public class HUBmanager : MonoBehaviour {
 		
 	}
 
-    void ResetHubManager()
+    public void ResetHubManager()
     {
         PlayerPrefs.SetInt("level1", 0);
         PlayerPrefs.SetInt("level2", 0);

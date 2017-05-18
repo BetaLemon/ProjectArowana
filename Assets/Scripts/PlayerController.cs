@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             }
 
             //weightModeHeavy = !weightModeHeavy;     // Inverts the value of the Weight Mode (Light->Heavy / Heavy->Light).
-            print("Weight changed to " + WeightMode);                // Print "Weight changed" just for debugging purposes. This needs to be removed in the final game.
+           // print("Weight changed to " + WeightMode);                // Print "Weight changed" just for debugging purposes. This needs to be removed in the final game.
         }
 
         if(prevWeightMode != WeightMode)                   // If the Weight Mode has changed from one frame to the next, then do...

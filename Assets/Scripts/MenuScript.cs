@@ -12,6 +12,7 @@ public class MenuScript : MonoBehaviour {
     public Button startButton;
     public Button exitButton;
     public Button optionsButton;
+    public Button resetButton;
     public Button backToMainMenuButton;
     public Scene game;
 
@@ -26,6 +27,7 @@ public class MenuScript : MonoBehaviour {
         optionsButton.onClick.AddListener(OptionsButton);
         exitButton.onClick.AddListener(ExitButton);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
+        resetButton.onClick.AddListener(ResetButton);
         optionsMenu.SetActive(false);
     }
 	
@@ -51,5 +53,17 @@ public class MenuScript : MonoBehaviour {
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
-    
+    void ResetButton()
+    {
+        PlayerPrefs.SetInt("level1", 0);
+        PlayerPrefs.SetInt("level2", 0);
+        PlayerPrefs.SetInt("level3", 0);
+        PlayerPrefs.SetInt("level4", 0);
+        PlayerPrefs.SetInt("level5", 0);
+        PlayerPrefs.SetInt("level6", 0);
+        PlayerPrefs.SetInt("level7", 0);
+        PlayerPrefs.SetInt("level8", 0);
+        PlayerPrefs.SetInt("level9", 0);
+        PlayerPrefs.SetInt("level10", 0);
+    }
 }
