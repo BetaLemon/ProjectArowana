@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         playerCollider = GetComponent<CapsuleCollider2D>();
 
         animator = GetComponent<Animator>();    //Assigns the Animator component from the player game object to the animator reference.
+        if (canChangeWeight) GivePowers();
     }
 
     // Update is called once per frame
@@ -243,5 +244,19 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
        WeightMode = 2; // -> Heavy
        animator.SetBool("Heavy", true);
 
+    }
+    public void PlusBoxAffected()
+    {
+        rb2d.mass = 3;                                 // ... set the mass to 15.
+        rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
+        jumpHeight = 24;
+        speed = 8;
+    }
+    public void MinusBoxAffected()
+    {
+        rb2d.mass = 5;                                  // ... we set the mass to 5.
+        rb2d.gravityScale = (float)1.5;                 // This is how much the gravity attracts.
+        jumpHeight = 15;
+        speed = 8;
     }
 }

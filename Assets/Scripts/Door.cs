@@ -26,8 +26,18 @@ public class Door : MonoBehaviour {
     {
         if (collision.tag == "Player" && GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
+            //dependiendo si lo ha acabado con todos los coleccionables o no, tal y cual
 
-            PlayerPrefs.SetInt(bFileName, 1);
+            //checker para no sobreescribir innecesariamente LOL
+            int statusChecker = PlayerPrefs.GetInt(bFileName, 0);
+            if (statusChecker == 0 || statusChecker == 1)
+            {
+                if (!GameObject.Find("Player").GetComponent<starPickup>().hasAll)
+                    PlayerPrefs.SetInt(bFileName, 1);
+                else
+                    PlayerPrefs.SetInt(bFileName, 2);
+            }
+
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
             fadeImage.scenefinish = true;

@@ -35,7 +35,7 @@ public class ImageFader : MonoBehaviour {
     {
         // Lerp the colour of the image between itself and black.
         fadeObject.color = Color.Lerp(fadeObject.color, Color.black, fadeTime * Time.deltaTime);
-        print(fadeObject.color.a);
+        //print(fadeObject.color.a);
     }
 
     public void StartScene()

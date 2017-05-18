@@ -6,7 +6,6 @@ public class ParallaxBackground : MonoBehaviour {
 
     GameObject cam;
     GameObject camStart;
-
 	// Use this for initialization
 	void Start () {
         cam = GameObject.Find("Main Camera");

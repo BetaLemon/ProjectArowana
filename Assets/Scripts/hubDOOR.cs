@@ -14,9 +14,11 @@ public class hubDOOR : MonoBehaviour {
     public bool activable;
     private bool isCollided;
     public int state;
+    public GameObject s2Mark;
     void Start()
     {
         animator = GetComponent<Animator>();
+        s2Mark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class hubDOOR : MonoBehaviour {
     public void UpdateState(int doorState)
     {
         state = doorState;
-
+        if (state == 2) s2Mark.SetActive(true);
         //here goes sprite update
     }
     void OnTriggerEnter2D(Collider2D collision)
