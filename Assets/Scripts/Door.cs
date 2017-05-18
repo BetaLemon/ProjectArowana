@@ -12,6 +12,7 @@ public class Door : MonoBehaviour {
     private Animator animator;
     public int nextLevel;
     public bool autoActivate;
+    public string bFileName;
     void Start () {
         animator = GetComponent<Animator>();
 	}
@@ -25,6 +26,8 @@ public class Door : MonoBehaviour {
     {
         if (collision.tag == "Player" && GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
+
+            PlayerPrefs.SetInt(bFileName, 1);
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
             fadeImage.scenefinish = true;
