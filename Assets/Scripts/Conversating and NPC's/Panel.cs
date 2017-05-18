@@ -19,7 +19,6 @@ public class Panel : MonoBehaviour
         instance = this;
         gameObject.SetActive(false); //Asegura que no se muestra el panel primero
         dialogue = GetComponentInChildren<Dialogue>(); //Asigna el dialogo
-        //sentencesAmmount = currentConversation.sentences.Length;
     }
 
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
@@ -27,9 +26,13 @@ public class Panel : MonoBehaviour
         currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.
         PanelActivation(true); //Muestra el panel
 
+        Debug.Log("currentConversation : " + currentConversation, currentConversation);
+        Debug.Log("currentConversation.sentences : " + currentConversation.sentences, currentConversation);
+        sentencesAmmount = currentConversation.sentences.Length;
         currentSentence = 0;
 
         DoPlayCurrentSentence();
+
     }
 
     public void StopConversation()

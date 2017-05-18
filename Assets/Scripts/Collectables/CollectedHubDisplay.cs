@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectedDisplay : MonoBehaviour
+public class CollectedHubDisplay : MonoBehaviour
 {
 
     public int level; //Level ID#
@@ -14,17 +14,21 @@ public class CollectedDisplay : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
+
         if (collectable1)
         {
-
+            transform.GetChild(0).gameObject.SetActive(true);
         }
         if (collectable2)
         {
-
+            transform.GetChild(1).gameObject.SetActive(true);
         }
         if (collectable3)
         {
-
+            transform.GetChild(2).gameObject.SetActive(true);
         }
     }
 }
