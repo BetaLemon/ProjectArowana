@@ -13,6 +13,7 @@ public class hubDOOR : MonoBehaviour {
     public int levelDoor;
     public bool activable;
     private bool isCollided;
+    public int state;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,6 +30,12 @@ public class hubDOOR : MonoBehaviour {
         }
     }
 
+    public void UpdateState(int doorState)
+    {
+        state = doorState;
+
+        //here goes sprite update
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Player")
