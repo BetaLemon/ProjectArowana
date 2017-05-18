@@ -61,15 +61,17 @@ public class Panel : MonoBehaviour
 
     void DoPlayCurrentSentence() //Establece en el Dialogue.cs los datos de la conversacion y la ejecuta.
     {
-        //SHADEFER("Cambiar el texto con el nombre del personaje que habla");
-        //SHADEFER("Cambiar el grafico del personaje que habla");
-        //Cambiar conversacion actual:
-        dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
-        Debug.Log("Pasando a dialogo " + currentSentence);
         if (sentencesAmmount == currentSentence) //No more sentences left to send
         {
             dialogue.NoMoreSentencesLeft();
         }
+
+        //SHADEFER("Cambiar el texto con el nombre del personaje que habla");
+        //SHADEFER("Cambiar el grafico del personaje que habla");
+        //Cambiar conversacion actual:
+
+        dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
+        Debug.Log("Pasando a dialogo " + currentSentence);
     }
 
     void BreakConversation() //Ordena a Dialogue.cs que pare la conversacion.

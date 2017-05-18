@@ -49,6 +49,8 @@ public class Dialogue : MonoBehaviour
     //Async thread "IEnumeratorCalls (or not) the DisplayString() cororutine which displays the currentConversationIndex's strings:
     private IEnumerator StartDialogue()
     {
+        DisplaySentence: //Label for starting the display of a sentence
+
         int dialogueLength = DialogueStrings.Length;
         int currentConversationIndex = 0;
 
@@ -82,10 +84,11 @@ public class Dialogue : MonoBehaviour
 
         if (!_noMoreSentencesLeft) //We will know if there are any sentences left as the Panel.cs tells us... if there are still sentences left...
         {
-            _isDialoguePlaying = false;
+            currentConversationIndex = 0;
             Debug.Log("Requesting next sentence");
             Panel.instance.NextSentencePlease(); //Requesting next sentence to be played
-            StopAllCoroutines(); //Detenemos las corutinas (Se iniciaran de nuevo porque quedan mas dialogos)
+
+            goto DisplaySentence; //Go back to the DisplaySentence lebel
         }
         else if (_noMoreSentencesLeft) //No more sentences left! Let's get out of here!
         {
