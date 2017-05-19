@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public Vector2 windVector = new Vector2(0, 0);
 
     public bool canChangeWeight;        // Variable to control if the player can change his weight. In each scene we can decide whether it's true or not.
-
+    public bool canMove = true;
 
     // When the game starts, this is initialized:
     void Awake()
@@ -165,56 +165,59 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     void FixedUpdate()  // This update is called at the same framerate the game is working at. In general this is recommended for player movement and physics.
     {
-        // Move the player horizontally:
-        float h = Input.GetAxis("Horizontal");      // Saves the input for the player's horizontal movement =>   [left-arrow] is -1 // [right-arrow] is 1 // [neutral] is 0
-        //                                                                                                             <-                    ->                  --
-        //Debug.Log(h);
-        if (h != 0) // If the player has moved left or right/the movement is neutral, do...
+        if (canMove)
         {
-
-            animator.SetBool("Running", true);
-
-            Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
-
-            // Let's check if there are obstacles
-            // in the desired direction
-            hitInfo2D = Physics2D.Raycast(transform.position, desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround);
-            if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
-            if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
-            // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
-            //if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
-
-            //Debug.Log(hitInfo2D.collider);
-
-            if (hitInfo2D.collider != null)
+            // Move the player horizontally:
+            float h = Input.GetAxis("Horizontal");      // Saves the input for the player's horizontal movement =>   [left-arrow] is -1 // [right-arrow] is 1 // [neutral] is 0
+                                                        //                                                                                                             <-                    ->                  --
+                                                        //Debug.Log(h);
+            if (h != 0) // If the player has moved left or right/the movement is neutral, do...
             {
-                // There's an obstacle - do not change speed
-            }
-            else
-            {
-                if (rb2d.velocity.x > speed || rb2d.velocity.x < -speed)
+
+                animator.SetBool("Running", true);
+
+                Vector2 desiredHorizontalSpeed = new Vector2(speed * h, 0);
+
+                // Let's check if there are obstacles
+                // in the desired direction
+                hitInfo2D = Physics2D.Raycast(transform.position, desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround);
+                if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+                if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 2f)), desiredHorizontalSpeed, playerCollider.size.x + 0.001f, layerGround); }
+                // if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
+                //if (hitInfo2D.collider == null) { hitInfo2D = Physics2D.Raycast(transform.position + (Vector3.up * (-playerCollider.size.y / 4f)), desiredHorizontalSpeed, playerCollider.size.x + 0.01f, layerGround); }
+
+                //Debug.Log(hitInfo2D.collider);
+
+                if (hitInfo2D.collider != null)
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x + desiredHorizontalSpeed.x * 0.1f, rb2d.velocity.y);
+                    // There's an obstacle - do not change speed
                 }
                 else
-                rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
+                {
+                    if (rb2d.velocity.x > speed || rb2d.velocity.x < -speed)
+                    {
+                        rb2d.velocity = new Vector2(rb2d.velocity.x + desiredHorizontalSpeed.x * 0.1f, rb2d.velocity.y);
+                    }
+                    else
+                        rb2d.velocity = desiredHorizontalSpeed + (Vector2.up * rb2d.velocity.y);    // Change the player's y-axis speed accordingly. If h is negative, the speed too, and inverse too.
+
+                }
+            }
+            else { animator.SetBool("Running", false); }
+
+            // This makes the sprite flip to the direction the player is looking at.
+            if (h > 0 && !facingRight)      // If the player moves right (h = 1) and the sprite is not already looking right, then...
+                Flip();                     // ...flip the sprite!
+            else if (h < 0 && facingRight)  // If the player moves left (h = -1) and the sprite is not already looking left, then...
+                Flip();                     // ...flip the sprite!
+
+            // Applies the jump to the player.
+            if (jump)   // If jump is true, ergo the player is jumpig. Duh.
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
+                jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
 
             }
-        }
-        else {  animator.SetBool("Running", false); }
-
-        // This makes the sprite flip to the direction the player is looking at.
-        if (h > 0 && !facingRight)      // If the player moves right (h = 1) and the sprite is not already looking right, then...
-            Flip();                     // ...flip the sprite!
-        else if (h < 0 && facingRight)  // If the player moves left (h = -1) and the sprite is not already looking left, then...
-            Flip();                     // ...flip the sprite!
-
-        // Applies the jump to the player.
-        if (jump)   // If jump is true, ergo the player is jumpig. Duh.
-        { 
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);   // Set the velocity to a 2D Vector that mantains the player's current x-axis movement, but sets the vertical speed to jumpHeight.
-            jump = false;   // Set jump to false, as it has already jumped, and there is no point in repeating that.
-            
         }
 
         //some wind spam here because my code sucks
@@ -260,5 +263,10 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         rb2d.gravityScale = (float)1.5;                 // This is how much the gravity attracts.
         jumpHeight = 15;
         speed = 8;
+    }
+
+    public void startStopMovement(bool startstop)
+    {
+        canMove = startstop;
     }
 }
