@@ -16,6 +16,7 @@ public class PauseScript : MonoBehaviour {
     private bool paused;
   
     void Start () {
+        kHud = GameObject.Find("Collecteds");
         pauseMenu = GameObject.Find("PauseMenu");
         resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
         restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
