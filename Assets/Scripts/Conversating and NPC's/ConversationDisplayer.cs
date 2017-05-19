@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
+
 public class ConversationDisplayer : MonoBehaviour
 {
     private Text _textComponent; //We save the text we want to write to the text component here
@@ -26,16 +27,21 @@ public class ConversationDisplayer : MonoBehaviour
     State currentState = State.RevealingText;
 
     public float SecondsBetweenCharacters = 0.03f; //Delay between character's being shown on the text display.
-    public float CharacterRateMultiplier = 0.05f; //How much faster the text should go when the player holds down a key. (The lower the faster)
 
     public KeyCode DialogueInput = KeyCode.Return;
     bool startTheDialogue = false;
 
     public GameObject ContinueIcon;
 
+    public GameObject Name;
+    private NameDisplay access;
+    public string aName;
+
     //INICIAIZATION
     void Start()
     {
+        access = Name.GetComponent<NameDisplay>();
+
         _textComponent = GetComponent<Text>();
         _textComponent.text = ""; //Emptying text display just for good measure.
 
@@ -45,7 +51,7 @@ public class ConversationDisplayer : MonoBehaviour
     public void SetConversationAndStart(Conversation newConversation)
     {
         Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
-        
+
         currentConversation = newConversation;
 
         currentState = State.RevealingText;
@@ -66,6 +72,11 @@ public class ConversationDisplayer : MonoBehaviour
     float timeLeftToRevealNextChar = 0f;
     void Update()
     {
+        access.aName2 = currentConversation.sentences[idxSentence].name;
+        Debug.Log(currentConversation.sentences[idxSentence].name);
+
+        //nameDisplayer.updateName("AAAAA");
+
         switch (currentState)
         {
             case State.RevealingText:
@@ -85,7 +96,7 @@ public class ConversationDisplayer : MonoBehaviour
                         ContinueIcon.SetActive(false);
                     }
 
-                    timeLeftToRevealNextChar = SecondsBetweenCharacters * CharacterRateMultiplier;
+                    timeLeftToRevealNextChar = SecondsBetweenCharacters;
                 }
                 break;
 
@@ -99,6 +110,7 @@ public class ConversationDisplayer : MonoBehaviour
                     if (idxText >= currentConversation.sentences[idxSentence].texts.Length)
                     {
                         idxSentence++;
+
                         if (idxSentence >= currentConversation.sentences.Length)
                         {
                             KillTheFuckingBox();
