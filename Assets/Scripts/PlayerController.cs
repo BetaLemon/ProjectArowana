@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
         animator = GetComponent<Animator>();    //Assigns the Animator component from the player game object to the animator reference.
         if (canChangeWeight) GivePowers();
-    }
+        canMove = true;
+}
 
     // Update is called once per frame
     void Update()
