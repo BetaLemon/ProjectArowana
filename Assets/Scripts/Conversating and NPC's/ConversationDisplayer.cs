@@ -61,8 +61,6 @@ public class ConversationDisplayer : MonoBehaviour
     public void StopConversation()
     {
         currentConversation = null;
-        gameObject.SetActive(false);
-        PlayerController.instance.startStopMovement(true);
     }
 
 
@@ -125,6 +123,8 @@ public class ConversationDisplayer : MonoBehaviour
 
     private void KillTheFuckingBox() //Hace desaparecer el panel y termina la conversacion
     {
+        Debug.Log("Movimiento: true");
+        PlayerController.instance.startStopMovement(true); //Kloe can now move
         Panel.instance.PanelActivation(false);
     }
 

@@ -29,8 +29,6 @@ public class DialogueLaunch : MonoBehaviour
             !Panel.instance.ConversationInProgress()
             ) //Comprobar si se ha pulsado enter mientras estabamos dentro de la colision
         {
-            Debug.Log("Movimiento: false");
-            PlayerController.instance.startStopMovement(false); //Stop Kloe from moving
             Conversation conversation = GetComponentInChildren<Conversation>(); //Recoge el elemento de conversacion del npc al qual va adjudicado este script
             Panel.instance.PlayConversation(conversation); //Ejecuta la funcion de reproducir conversacion en el Panel con la conversacion que hemos recogido
         }
