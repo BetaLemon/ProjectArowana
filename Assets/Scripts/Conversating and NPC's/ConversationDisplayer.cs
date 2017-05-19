@@ -32,7 +32,6 @@ public class ConversationDisplayer : MonoBehaviour
     bool startTheDialogue = false;
 
     public GameObject ContinueIcon;
-    public GameObject StopIcon;
 
     //INICIAIZATION
     void Start()
@@ -41,7 +40,6 @@ public class ConversationDisplayer : MonoBehaviour
         _textComponent.text = ""; //Emptying text display just for good measure.
 
         ContinueIcon.SetActive(false);
-        StopIcon.SetActive(false);
     }
 
     public void SetConversationAndStart(Conversation newConversation)
@@ -80,8 +78,11 @@ public class ConversationDisplayer : MonoBehaviour
 
                     if (idxChar >= currentConversation.sentences[idxSentence].texts[idxText].Length)
                     {
+                        ContinueIcon.SetActive(true);
                         currentState = State.WaitingForInput;
-                        StopIcon.SetActive(true);
+                    }
+                    else {
+                        ContinueIcon.SetActive(false);
                     }
 
                     timeLeftToRevealNextChar = SecondsBetweenCharacters * CharacterRateMultiplier;
@@ -107,7 +108,7 @@ public class ConversationDisplayer : MonoBehaviour
                             idxText = 0;
                             _textComponent.text = "";
                             currentState = State.RevealingText;
-                            StopIcon.SetActive(false);
+                            ContinueIcon.SetActive(false);
 
                             Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
                         }
