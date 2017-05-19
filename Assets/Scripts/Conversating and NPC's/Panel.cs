@@ -9,7 +9,8 @@ public class Panel : MonoBehaviour
     public static Panel instance;
 
     Conversation currentConversation;
-    Dialogue dialogue; //
+    ConversationDisplayer conversationDisplayer;
+
     int sentencesAmmount;
     int currentSentence;
 
@@ -18,29 +19,23 @@ public class Panel : MonoBehaviour
     {
         instance = this;
         gameObject.SetActive(false); //Asegura que no se muestra el panel primero
-        dialogue = GetComponentInChildren<Dialogue>(); //Asigna el dialogo
+        conversationDisplayer = GetComponentInChildren<ConversationDisplayer>(); //Asigna el dialogo
     }
 
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
     {
-        currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.
+        conversationDisplayer.SetConversationAndStart(conversation);
         PanelActivation(true); //Muestra el panel
 
-        sentencesAmmount = currentConversation.sentences.Length;
-
-        currentSentence = 0;
-        Debug.Log("Current sentence: " + currentSentence);
-
-        DoPlayCurrentSentence();
-
+        currentConversation = conversation; //Guarda la conversacion que habiamos recogido en dialoguelaunch como conversacion actual para el panel.
     }
 
     public void StopConversation()
     {
+        Debug.Log("Movimiento: true");
+        PlayerController.instance.startStopMovement(true); //Kloe can now move
+        conversationDisplayer.StopConversation();
         currentConversation = null;
-        PanelActivation(false); //Esconde el panel
-
-        BreakConversation();
     }
 
     public void PanelActivation(bool what) //Activar o desactivar panel
@@ -48,35 +43,9 @@ public class Panel : MonoBehaviour
         gameObject.SetActive(what);
     }
 
-    public void NextSentencePlease() //Used by Dialogue for requesting the next sentence.
+    public bool ConversationInProgress()
     {
-        currentSentence++;
-        Debug.Log("Current sentence: " + currentSentence);
-
-        if (sentencesAmmount > currentSentence)
-        {
-            DoPlayCurrentSentence();
-        }
-    }
-
-    void DoPlayCurrentSentence() //Establece en el Dialogue.cs los datos de la conversacion y la ejecuta.
-    {
-        if (sentencesAmmount == currentSentence) //No more sentences left to send
-        {
-            dialogue.NoMoreSentencesLeft();
-        }
-
-        //SHADEFER("Cambiar el texto con el nombre del personaje que habla");
-        //SHADEFER("Cambiar el grafico del personaje que habla");
-        //Cambiar conversacion actual:
-
-        dialogue.SetNextTexts(currentConversation.sentences[currentSentence].texts); //La conversación actual que hemos asignado como la que hemos recogido desde el Dialogue Launch será la que se muestre en Dialogue.cs
-        Debug.Log("Pasando a dialogo " + currentSentence);
-    }
-
-    void BreakConversation() //Ordena a Dialogue.cs que pare la conversacion.
-    {
-        dialogue.StopConversation();
+        return currentConversation != null;
     }
 
 }
