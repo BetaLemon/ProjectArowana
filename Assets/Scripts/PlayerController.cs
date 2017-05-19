@@ -247,6 +247,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     }
     public void PlusBoxAffected()
     {
+        WeightMode = 2;
         rb2d.mass = 3;                                 // ... set the mass to 15.
         rb2d.gravityScale = (float)9;                   // How much the gravity attracts things.
         jumpHeight = 24;
@@ -254,6 +255,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     }
     public void MinusBoxAffected()
     {
+        WeightMode = 0;
         rb2d.mass = 5;                                  // ... we set the mass to 5.
         rb2d.gravityScale = (float)1.5;                 // This is how much the gravity attracts.
         jumpHeight = 15;

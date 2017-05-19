@@ -12,6 +12,7 @@ public class PauseScript : MonoBehaviour {
     public Button restartButton;
     public Button menuButton;
 
+    public GameObject kHud;
     private bool paused;
   
     void Start () {
@@ -33,12 +34,14 @@ public class PauseScript : MonoBehaviour {
         if(Input.GetButtonDown("Pause") && !paused){
             paused = true;
             pauseMenu.SetActive(true);
+            kHud.SetActive(false);
             Time.timeScale = 0;
         }
         else if (Input.GetButtonDown("Pause") && paused)
         {
             
             Time.timeScale = 1;
+            kHud.SetActive(true);
             pauseMenu.SetActive(false);
             paused = false;
         }
