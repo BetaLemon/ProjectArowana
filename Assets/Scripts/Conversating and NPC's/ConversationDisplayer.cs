@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ConversationDisplayer : MonoBehaviour
 {
+    public static ConversationDisplayer displayerInstance;
+
     private Text _textComponent; //We save the text we want to write to the text component here
 
     public AudioSource TextSound;
@@ -35,12 +37,17 @@ public class ConversationDisplayer : MonoBehaviour
 
     public GameObject Name;
     private NameDisplay access;
-    public string aName;
+
+    public GameObject Sprite;
+    private ImageDisplay access2;
 
     //INICIAIZATION
     void Start()
     {
+        displayerInstance = this;
+
         access = Name.GetComponent<NameDisplay>();
+        //access2 = Sprite.GetComponent<ImageDisplay>();
 
         _textComponent = GetComponent<Text>();
         _textComponent.text = ""; //Emptying text display just for good measure.
@@ -72,10 +79,14 @@ public class ConversationDisplayer : MonoBehaviour
     float timeLeftToRevealNextChar = 0f;
     void Update()
     {
-        access.aName2 = currentConversation.sentences[idxSentence].name;
-        Debug.Log(currentConversation.sentences[idxSentence].name);
-
+        //Actualizando nombre de quien habla:
         //nameDisplayer.updateName("AAAAA");
+        access.aName = currentConversation.sentences[idxSentence].name;
+        Debug.Log("Nombre en uso: " +currentConversation.sentences[idxSentence].name);
+
+        //Actualizando imagen de quien habla:
+        //access2.anImage = currentConversation.sentences[idxSentence].characterFace;
+        Debug.Log("Sprite en uso: " +currentConversation.sentences[idxSentence].characterFace);
 
         switch (currentState)
         {
@@ -144,5 +155,11 @@ public class ConversationDisplayer : MonoBehaviour
     public void StartTheDialogue()
     {
         startTheDialogue = true;
+    }
+
+    public Sprite getImageWhoTalks()
+    {
+        Sprite theSprite = currentConversation.sentences[idxSentence].characterFace;
+        return theSprite;
     }
 }

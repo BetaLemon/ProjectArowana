@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class NameDisplay : MonoBehaviour
 {
     public static NameDisplay instance;
-    public string aName2;
+    public string aName;
 
     private Text _textComponent;
+
     void Start()
     {
         _textComponent = GetComponent<Text>();
@@ -18,13 +19,7 @@ public class NameDisplay : MonoBehaviour
 
     void Update()
     {
-        _textComponent.text = aName2;
-    }
-
-    public void updateName(string theName)
-    {
-        Debug.Log("NAME DISPLAYER RESPONDING");
-        _textComponent.text = theName;
+        _textComponent.text = aName;
     }
 }
 
