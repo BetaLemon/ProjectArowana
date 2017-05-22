@@ -268,6 +268,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     public void startStopMovement(bool startstop)
     {
+        animator.SetBool("Running", false);
         canMove = startstop;
+
     }
 }

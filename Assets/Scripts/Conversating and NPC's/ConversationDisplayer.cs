@@ -3,8 +3,11 @@ using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
+
 public class ConversationDisplayer : MonoBehaviour
 {
+    public static ConversationDisplayer displayerInstance;
+
     private Text _textComponent; //We save the text we want to write to the text component here
 
     public AudioSource TextSound;
@@ -26,28 +29,36 @@ public class ConversationDisplayer : MonoBehaviour
     State currentState = State.RevealingText;
 
     public float SecondsBetweenCharacters = 0.03f; //Delay between character's being shown on the text display.
-    public float CharacterRateMultiplier = 0.05f; //How much faster the text should go when the player holds down a key. (The lower the faster)
 
     public KeyCode DialogueInput = KeyCode.Return;
     bool startTheDialogue = false;
 
     public GameObject ContinueIcon;
-    public GameObject StopIcon;
+
+    public GameObject Name;
+    private NameDisplay access;
+
+    public GameObject Sprite;
+    private ImageDisplay access2;
 
     //INICIAIZATION
     void Start()
     {
+        displayerInstance = this;
+
+        access = Name.GetComponent<NameDisplay>();
+        //access2 = Sprite.GetComponent<ImageDisplay>();
+
         _textComponent = GetComponent<Text>();
         _textComponent.text = ""; //Emptying text display just for good measure.
 
         ContinueIcon.SetActive(false);
-        StopIcon.SetActive(false);
     }
 
     public void SetConversationAndStart(Conversation newConversation)
     {
         Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
-        
+
         currentConversation = newConversation;
 
         currentState = State.RevealingText;
@@ -68,6 +79,15 @@ public class ConversationDisplayer : MonoBehaviour
     float timeLeftToRevealNextChar = 0f;
     void Update()
     {
+        //Actualizando nombre de quien habla:
+        //nameDisplayer.updateName("AAAAA");
+        access.aName = currentConversation.sentences[idxSentence].name;
+        Debug.Log("Nombre en uso: " +currentConversation.sentences[idxSentence].name);
+
+        //Actualizando imagen de quien habla:
+        //access2.anImage = currentConversation.sentences[idxSentence].characterFace;
+        Debug.Log("Sprite en uso: " +currentConversation.sentences[idxSentence].characterFace);
+
         switch (currentState)
         {
             case State.RevealingText:
@@ -80,11 +100,14 @@ public class ConversationDisplayer : MonoBehaviour
 
                     if (idxChar >= currentConversation.sentences[idxSentence].texts[idxText].Length)
                     {
+                        ContinueIcon.SetActive(true);
                         currentState = State.WaitingForInput;
-                        StopIcon.SetActive(true);
+                    }
+                    else {
+                        ContinueIcon.SetActive(false);
                     }
 
-                    timeLeftToRevealNextChar = SecondsBetweenCharacters * CharacterRateMultiplier;
+                    timeLeftToRevealNextChar = SecondsBetweenCharacters;
                 }
                 break;
 
@@ -98,6 +121,7 @@ public class ConversationDisplayer : MonoBehaviour
                     if (idxText >= currentConversation.sentences[idxSentence].texts.Length)
                     {
                         idxSentence++;
+
                         if (idxSentence >= currentConversation.sentences.Length)
                         {
                             KillTheFuckingBox();
@@ -107,7 +131,7 @@ public class ConversationDisplayer : MonoBehaviour
                             idxText = 0;
                             _textComponent.text = "";
                             currentState = State.RevealingText;
-                            StopIcon.SetActive(false);
+                            ContinueIcon.SetActive(false);
 
                             Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
                         }
@@ -131,5 +155,11 @@ public class ConversationDisplayer : MonoBehaviour
     public void StartTheDialogue()
     {
         startTheDialogue = true;
+    }
+
+    public Sprite getImageWhoTalks()
+    {
+        Sprite theSprite = currentConversation.sentences[idxSentence].characterFace;
+        return theSprite;
     }
 }
