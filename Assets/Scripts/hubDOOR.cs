@@ -14,10 +14,12 @@ public class hubDOOR : MonoBehaviour {
     public bool activable;
     private bool isCollided;
     public int state;
+    public GameObject s1Mark;
     public GameObject s2Mark;
     void Start()
     {
         animator = GetComponent<Animator>();
+        s1Mark.SetActive(false);
         s2Mark.SetActive(false);
     }
 
@@ -35,6 +37,7 @@ public class hubDOOR : MonoBehaviour {
     public void UpdateState(int doorState)
     {
         state = doorState;
+        if (state >= 1) s1Mark.SetActive(true);
         if (state == 2) s2Mark.SetActive(true);
         //here goes sprite update
     }
