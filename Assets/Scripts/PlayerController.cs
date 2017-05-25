@@ -270,6 +270,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     {
         animator.SetBool("Running", false);
         canMove = startstop;
+        rb2d.velocity = new Vector2(0, 0);
 
     }
 }

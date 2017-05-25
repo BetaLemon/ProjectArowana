@@ -23,7 +23,7 @@ public class Panel : MonoBehaviour
 
     public void PlayConversation(Conversation conversation) //Esta funcion se ejecuta desde el launch
     {
-        Debug.Log("Movimiento: false");
+//        Debug.Log("Movimiento: false");
         PlayerController.instance.startStopMovement(false); //Stop Kloe from moving
 
         conversationDisplayer.SetConversationAndStart(conversation);

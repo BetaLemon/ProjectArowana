@@ -57,8 +57,6 @@ public class ConversationDisplayer : MonoBehaviour
 
     public void SetConversationAndStart(Conversation newConversation)
     {
-        Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
-
         currentConversation = newConversation;
 
         currentState = State.RevealingText;
@@ -82,11 +80,11 @@ public class ConversationDisplayer : MonoBehaviour
         //Actualizando nombre de quien habla:
         //nameDisplayer.updateName("AAAAA");
         access.aName = currentConversation.sentences[idxSentence].name;
-        Debug.Log("Nombre en uso: " +currentConversation.sentences[idxSentence].name);
+//        Debug.Log("Nombre en uso: " +currentConversation.sentences[idxSentence].name);
 
         //Actualizando imagen de quien habla:
         //access2.anImage = currentConversation.sentences[idxSentence].characterFace;
-        Debug.Log("Sprite en uso: " +currentConversation.sentences[idxSentence].characterFace);
+//        Debug.Log("Sprite en uso: " +currentConversation.sentences[idxSentence].characterFace);
 
         switch (currentState)
         {
@@ -132,8 +130,6 @@ public class ConversationDisplayer : MonoBehaviour
                             _textComponent.text = "";
                             currentState = State.RevealingText;
                             ContinueIcon.SetActive(false);
-
-                            Debug.LogWarning("Acuerdate de cambiar el gráfico del personaje");
                         }
                     }
                     else
@@ -147,7 +143,7 @@ public class ConversationDisplayer : MonoBehaviour
 
     private void KillTheFuckingBox() //Hace desaparecer el panel y termina la conversacion
     {
-        Debug.Log("Movimiento: true");
+//        Debug.Log("Movimiento: true");
         PlayerController.instance.startStopMovement(true); //Kloe can now move
         Panel.instance.PanelActivation(false);
     }
