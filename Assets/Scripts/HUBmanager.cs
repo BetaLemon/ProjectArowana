@@ -26,7 +26,7 @@ public class HUBmanager : MonoBehaviour {
     public hubDOOR door8;
 
     public Wind activateFan;
-
+    public FountainScript activateFountain;
 
     void Start () {
         
@@ -41,6 +41,14 @@ public class HUBmanager : MonoBehaviour {
         l8C = PlayerPrefs.GetInt("level8", 0);
         l9C = PlayerPrefs.GetInt("level9", 0);
         l10C = PlayerPrefs.GetInt("level10", 0);
+
+        if (l1C != 0 && l2C != 0 && l3C != 0 && l4C != 0 && l5C != 0 && l6C != 0 && l7C != 0 && l8C != 0)
+        {
+            activateFountain.activable = true;
+            activateFountain.updateState();
+        }
+        else
+            activateFountain.activable = false;
 
         //update stuff
         door1.GetComponent<hubDOOR>().UpdateState(l1C);

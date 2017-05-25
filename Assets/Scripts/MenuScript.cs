@@ -37,7 +37,7 @@ public class MenuScript : MonoBehaviour {
     }
     void StartButton()
     {
-        fadeImage.GetComponent<ImageFader>().scenefinish = true;
+        fadeImage.scenefinish = true;
     }
     void OptionsButton()
     {
