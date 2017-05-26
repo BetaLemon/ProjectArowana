@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
                                                    // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
         if (!temp && grounded)
             fallSound.Play();
-        if (Input.GetButtonDown("Jump") && grounded)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
+        if (Input.GetButtonDown("Jump") && grounded && canMove)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
             //animator.SetBool("Jumping", true);
             jump = true;        // Set true the jump bool.
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
         }
 
-        if (Input.GetButtonDown("Weight") && canChangeWeight)          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
+        if (Input.GetButtonDown("Weight") && canChangeWeight && canMove)          // If the player hits the "Weight" Button as configured in the Project Settings > Input.
         {
             switch (WeightMode)
             {
