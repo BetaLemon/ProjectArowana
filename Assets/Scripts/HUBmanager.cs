@@ -28,8 +28,10 @@ public class HUBmanager : MonoBehaviour {
     public Wind activateFan;
     public FountainScript activateFountain;
 
+    public GameObject spawnZenku;
     void Start () {
-        
+
+        spawnZenku.SetActive(false);
         //get components
         l1C = PlayerPrefs.GetInt("level1", 0);
         l2C = PlayerPrefs.GetInt("level2", 0);
@@ -46,6 +48,7 @@ public class HUBmanager : MonoBehaviour {
         {
             activateFountain.activable = true;
             activateFountain.updateState();
+            spawnZenku.SetActive(true);
         }
         else
             activateFountain.activable = false;

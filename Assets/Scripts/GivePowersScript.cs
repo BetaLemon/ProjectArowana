@@ -16,16 +16,12 @@ public class GivePowersScript : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void destroyKey()
     {
         triggered = true;
-        if (collision.tag == "Player")
-        {
-            GameObject.Find("Player").GetComponent<PlayerController>().GivePowers();
-            
-            Destroy(thisKey);
+        GameObject.Find("Player").GetComponent<PlayerController>().GivePowers();
+
+         Destroy(thisKey);
         }
     }
 
-
-}

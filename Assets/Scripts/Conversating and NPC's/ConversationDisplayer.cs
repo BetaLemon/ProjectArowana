@@ -30,7 +30,7 @@ public class ConversationDisplayer : MonoBehaviour
 
     public float SecondsBetweenCharacters = 0.03f; //Delay between character's being shown on the text display.
 
-    public KeyCode DialogueInput = KeyCode.Return;
+    public KeyCode DialogueInput = KeyCode.Z;
     bool startTheDialogue = false;
 
     public GameObject ContinueIcon;
@@ -110,7 +110,7 @@ public class ConversationDisplayer : MonoBehaviour
                 break;
 
             case State.WaitingForInput:
-                if (Input.GetKeyDown(DialogueInput))
+                if (Input.GetButtonDown("Switch"))
                 {
                     idxChar = 0;
                     _textComponent.text = "";

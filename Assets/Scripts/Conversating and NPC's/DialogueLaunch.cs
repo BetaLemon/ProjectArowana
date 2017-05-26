@@ -24,14 +24,19 @@ public class DialogueLaunch : MonoBehaviour
 
     private void Update()
     {
-        if (nowPressEnter && 
-            Input.GetKeyDown(KeyCode.Return) &&
+        if (nowPressEnter &&
+            Input.GetButtonDown("Switch") &&
             !Panel.instance.ConversationInProgress()
-            ) //Comprobar si se ha pulsado enter mientras estabamos dentro de la colision
+            || nowPressEnter && gameObject.tag == "keydialogue") //Comprobar si se ha pulsado enter mientras estabamos dentro de la colision
         {
             Conversation conversation = GetComponentInChildren<Conversation>(); //Recoge el elemento de conversacion del npc al qual va adjudicado este script
             Panel.instance.PlayConversation(conversation); //Ejecuta la funcion de reproducir conversacion en el Panel con la conversacion que hemos recogido
+
+            if (gameObject.tag == "keydialogue")
+            {
+                nowPressEnter = false;
+                gameObject.GetComponent<GivePowersScript>().destroyKey();
+            }
         }
     }
-
 }
