@@ -24,7 +24,8 @@ public class HUBmanager : MonoBehaviour {
     public hubDOOR door6;
     public hubDOOR door7;
     public hubDOOR door8;
-
+    public GameObject level9mark2;
+    public GameObject level10mark2;
     public Wind activateFan;
     public FountainScript activateFountain;
 
@@ -63,6 +64,11 @@ public class HUBmanager : MonoBehaviour {
         door7.GetComponent<hubDOOR>().UpdateState(l7C);
         door8.GetComponent<hubDOOR>().UpdateState(l8C);
 
+        if (l9C == 2) level9mark2.SetActive(true);
+        else level9mark2.SetActive(false);
+        if (l10C == 2) level10mark2.SetActive(true);
+        else level10mark2.SetActive(false);
+        
         if (l5C > 0) activateFan.GetComponent<Wind>().activated = true;
     }
 

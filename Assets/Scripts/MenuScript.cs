@@ -14,6 +14,7 @@ public class MenuScript : MonoBehaviour {
     public Button optionsButton;
     public Button resetButton;
     public Button backToMainMenuButton;
+    public Scrollbar volumeSlider;
     public Scene game;
 
     public ImageFader fadeImage;
@@ -28,15 +29,28 @@ public class MenuScript : MonoBehaviour {
         exitButton.onClick.AddListener(ExitButton);
         backToMainMenuButton.onClick.AddListener(BackToMainMenu);
         resetButton.onClick.AddListener(ResetButton);
+        volumeSlider.onValueChanged.AddListener(delegate { VolumeController(); });
         optionsMenu.SetActive(false);
+
+        //set init volume
+        float volume = PlayerPrefs.GetFloat("Volume", 1);
+        volumeSlider.value = volume;
+        VolumeController();
     }
 	
 	// Update is called once per frame
 	void Update () {
-
     }
     void StartButton()
     {
+        int level2C = PlayerPrefs.GetInt("level2", 0);
+        //continue
+        if (level2C != 0)
+            fadeImage.nextScene = 11;
+        //new file
+        else
+            fadeImage.nextScene = 12;
+        
         fadeImage.scenefinish = true;
     }
     void OptionsButton()
@@ -65,5 +79,10 @@ public class MenuScript : MonoBehaviour {
         PlayerPrefs.SetInt("level8", 0);
         PlayerPrefs.SetInt("level9", 0);
         PlayerPrefs.SetInt("level10", 0);
+    }
+    void VolumeController()
+    {
+        AudioListener.volume = volumeSlider.value;
+        PlayerPrefs.SetFloat("Volume", volumeSlider.value);
     }
 }
