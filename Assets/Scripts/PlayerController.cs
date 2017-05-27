@@ -34,9 +34,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     Animator animator;  //Reference to the animator component attatched to the player Kloe Game Object
 
     //Sistemas de particulas de caida al suelo de Kloe:
-    public GameObject FallParticles;
     public ParticleSystem fallParts;
-    public GameObject FallParticles2;
     public ParticleSystem fallParts2;
 
     [HideInInspector]
@@ -51,9 +49,6 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     void Awake()
     {
         instance = this;
-
-        fallParts = FallParticles.GetComponent<ParticleSystem>();
-        fallParts2 = FallParticles2.GetComponent<ParticleSystem>();
 
         rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
         playerCollider = GetComponent<CapsuleCollider2D>();
@@ -91,11 +86,13 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         }
         else grounded = false;
         // If the collider that the Raycast detected is null, then the statement will be false, and thus grounded too.
-                                                   // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
-        if (!temp && grounded) //Efectos de caída sobre el suelo
+        // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
+        if (!temp && grounded)
+        { //Efectos de caída sobre el suelo
             fallParts.Play();
             fallParts2.Play();
             fallSound.Play();
+        }
         if (Input.GetButtonDown("Jump") && grounded && canMove)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
         {
             //animator.SetBool("Jumping", true);
