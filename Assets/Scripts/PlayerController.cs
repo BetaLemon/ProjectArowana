@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     void Update()
     {
         timeSincePlayerStart += Time.deltaTime; //Time.deltaTime de UnityEngine da el tiempo entre frames.
-        Debug.Log(timeSincePlayerStart);
+        //Debug.Log(timeSincePlayerStart);
         if (timeSincePlayerStart > partsSoundsTriggerDelay)
         {
             triggerDelaySurpassed = true;
