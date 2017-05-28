@@ -28,6 +28,7 @@ public class hubDOOR : MonoBehaviour {
     {
         if (isCollided && Input.GetButtonDown("Switch") && activable)
         {
+            PlayerController.instance.startStopMovement(false);
             fadeImage.nextScene = levelDoor;
             animator.SetBool("Open", true);
             fadeImage.scenefinish = true;

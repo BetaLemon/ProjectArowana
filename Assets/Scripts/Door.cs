@@ -26,6 +26,7 @@ public class Door : MonoBehaviour {
     {
         if (collision.tag == "Player" && GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
+            PlayerController.instance.startStopMovement(false);
             //dependiendo si lo ha acabado con todos los coleccionables o no, tal y cual
 
             //checker para no sobreescribir innecesariamente LOL
