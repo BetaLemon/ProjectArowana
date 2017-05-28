@@ -103,8 +103,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         if (!temp && grounded && triggerDelaySurpassed)
         { //Efectos de caída sobre el suelo
             //Decidiendo posicion de spawneo de particulas:
-            Vector3 posParts = new Vector3(instance.transform.position.x -0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
-            Vector3 posParts2 = new Vector3(instance.transform.position.x +0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
+            Vector3 posParts = new Vector3(instance.transform.position.x +0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
+            Vector3 posParts2 = new Vector3(instance.transform.position.x -0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
 
             fallParts.transform.position = posParts;
             fallParts2.transform.position = posParts2;
