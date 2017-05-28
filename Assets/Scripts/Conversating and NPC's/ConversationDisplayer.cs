@@ -146,6 +146,10 @@ public class ConversationDisplayer : MonoBehaviour
 //        Debug.Log("Movimiento: true");
         PlayerController.instance.startStopMovement(true); //Kloe can now move
         Panel.instance.PanelActivation(false);
+
+        //trashy as hell, but tries to find intro manager, if success, notifies that dialogue is done. could be applied to something else if necessary
+        GameObject introSeq = GameObject.Find("intromanager");
+        if (introSeq != null) introSeq.GetComponent<IntroManager>().DialogueDone();
     }
 
     public void StartTheDialogue()

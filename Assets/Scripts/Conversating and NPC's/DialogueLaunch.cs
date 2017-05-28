@@ -39,4 +39,10 @@ public class DialogueLaunch : MonoBehaviour
             }
         }
     }
+
+    public void StartConv()
+    {
+        Conversation conversation = GetComponentInChildren<Conversation>(); //Recoge el elemento de conversacion del npc al qual va adjudicado este script
+        Panel.instance.PlayConversation(conversation); //Ejecuta la funcion de reproducir conversacion en el Panel con la conversacion que hemos recogido
+    }
 }
