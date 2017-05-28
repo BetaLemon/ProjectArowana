@@ -44,12 +44,12 @@ public class MenuScript : MonoBehaviour {
     void StartButton()
     {
         int level2C = PlayerPrefs.GetInt("level2", 0);
-        //continue
+        //continue, goes to hubworld
         if (level2C != 0)
             fadeImage.nextScene = 11;
-        //new file
+        //new file, goes to intro scene 0.5
         else
-            fadeImage.nextScene = 12;
+            fadeImage.nextScene = 16;
         
         fadeImage.scenefinish = true;
     }

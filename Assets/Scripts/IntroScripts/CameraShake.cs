@@ -35,6 +35,8 @@ public class CameraShake : MonoBehaviour {
         if (timeShaked > duration)
         {
             canShake = false;
+            GameObject introManager = GameObject.Find("intromanager");
+            introManager.GetComponent<IntroManager>().QuakeDone();
         }
     }
     public void StartShake(float Emagnitude)

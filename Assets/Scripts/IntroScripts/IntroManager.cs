@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IntroManager : MonoBehaviour {
 
+    public ImageFader fadeImage;
     public GameObject cameraI;
     public GameObject convI;
     public float cameraSpeed;
@@ -13,6 +14,7 @@ public class IntroManager : MonoBehaviour {
     bool quakeLaunched;
     bool dialogueFinished;
     bool lerpFinished;
+    bool quakeFinished;
 	void Start () {
         timeInScene = Time.time;
         dialogueLaunched = false;
@@ -36,6 +38,11 @@ public class IntroManager : MonoBehaviour {
             quakeLaunched = true;
             cameraI.GetComponent<CameraShake>().StartShake(magnitudeEarthquake);
         }
+        if (quakeFinished)
+        {
+            fadeImage.nextScene = 12;
+            fadeImage.scenefinish = true;
+        }
     }
 
     public void DialogueDone()
@@ -45,5 +52,9 @@ public class IntroManager : MonoBehaviour {
     public void LerpDone()
     {
         lerpFinished = true;
+    }
+    public void QuakeDone()
+    {
+        quakeFinished = true;
     }
 }
