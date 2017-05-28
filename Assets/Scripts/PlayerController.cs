@@ -102,8 +102,17 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
         if (!temp && grounded && triggerDelaySurpassed)
         { //Efectos de caída sobre el suelo
+            //Decidiendo posicion de spawneo de particulas:
+            Vector3 posParts = new Vector3(instance.transform.position.x -0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
+            Vector3 posParts2 = new Vector3(instance.transform.position.x +0.2f, instance.transform.position.y -0.6f, instance.transform.position.z);
+
+            fallParts.transform.position = posParts;
+            fallParts2.transform.position = posParts2;
+
+            //Rafaga de particulas:
             fallParts.Play();
             fallParts2.Play();
+            //Sonido de caer:
             fallSound.Play();
         }
         if (Input.GetButtonDown("Jump") && grounded && canMove)    // If the player hits the "Jump" Button as configured in the Project Settings > Input.
