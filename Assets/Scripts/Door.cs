@@ -45,6 +45,7 @@ public class Door : MonoBehaviour {
         }
         else if (collision.tag == "Player" && autoActivate)
         {
+            PlayerController.instance.startStopMovement(false);
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
             fadeImage.scenefinish = true;
