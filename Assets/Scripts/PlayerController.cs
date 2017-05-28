@@ -38,6 +38,12 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     public ParticleSystem fallParts2;
 
     [HideInInspector]
+    float timeSincePlayerStart = 0.0f; //Time since the player spawned in the scene
+    float partsSoundsTriggerDelay = 1.0f;
+    [HideInInspector]
+    public bool triggerDelaySurpassed; //Used for stopping Play(); events for particles and sound on the start of a scene.
+
+    [HideInInspector]
     public bool affectedByWind = false;
     [HideInInspector]
     public Vector2 windVector = new Vector2(0, 0);
@@ -49,8 +55,9 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     void Awake()
     {
         instance = this;
+        triggerDelaySurpassed = false; //Evitar que se ejecuten Play(); de sonido y particulas al inicio de spawneo en escena.
 
-        rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
+       rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
         playerCollider = GetComponent<CapsuleCollider2D>();
 
         animator = GetComponent<Animator>();    //Assigns the Animator component from the player game object to the animator reference.
@@ -61,6 +68,12 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     // Update is called once per frame
     void Update()
     {
+        timeSincePlayerStart += Time.deltaTime; //Time.deltaTime de UnityEngine da el tiempo entre frames.
+        Debug.Log(timeSincePlayerStart);
+        if (timeSincePlayerStart > partsSoundsTriggerDelay)
+        {
+            triggerDelaySurpassed = true;
+        }
         //Debug.Log(grounded);
         if (grounded)
         {
@@ -87,7 +100,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         else grounded = false;
         // If the collider that the Raycast detected is null, then the statement will be false, and thus grounded too.
         // But if the Raycast hit something, it will contain a collider and the statement will be true, and grounded too.
-        if (!temp && grounded)
+        if (!temp && grounded && triggerDelaySurpassed)
         { //Efectos de caída sobre el suelo
             fallParts.Play();
             fallParts2.Play();
