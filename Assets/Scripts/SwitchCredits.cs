@@ -8,7 +8,6 @@ public class SwitchCredits : MonoBehaviour
     // Use this for initialization
     private bool triggerEnter;
     private Animator animator;
-    private bool activated = false;
     public AudioSource effect;
     public ImageFader fadeImage;
     void Start()
