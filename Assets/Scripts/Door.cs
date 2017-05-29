@@ -13,9 +13,17 @@ public class Door : MonoBehaviour {
     public int nextLevel;
     public bool autoActivate;
     public string bFileName;
+    private int statusChecker;
     void Start () {
         animator = GetComponent<Animator>();
-	}
+
+        //checker para no sobreescribir innecesariamente LOL
+        statusChecker = PlayerPrefs.GetInt(bFileName, 0);
+
+        //si el nivel 1 esta acabado previamente, se lleva al hub en vez de nivel 2
+        if (statusChecker > 0 && bFileName == "level1") nextLevel = 11;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,8 +37,7 @@ public class Door : MonoBehaviour {
             PlayerController.instance.startStopMovement(false);
             //dependiendo si lo ha acabado con todos los coleccionables o no, tal y cual
 
-            //checker para no sobreescribir innecesariamente LOL
-            int statusChecker = PlayerPrefs.GetInt(bFileName, 0);
+            
             if (statusChecker == 0 || statusChecker == 1)
             {
                 if (!GameObject.Find("Player").GetComponent<starPickup>().hasAll)
@@ -38,7 +45,7 @@ public class Door : MonoBehaviour {
                 else
                     PlayerPrefs.SetInt(bFileName, 2);
             }
-
+            
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);
             fadeImage.scenefinish = true;
