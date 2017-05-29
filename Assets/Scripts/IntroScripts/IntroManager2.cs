@@ -9,6 +9,7 @@ public class IntroManager2 : MonoBehaviour {
     bool dialogueLaunched;
     public GameObject convI;
 	void Start () {
+        PlayerPrefs.SetFloat("Time", 0);
         timeInScene = 0.0f;
         dialogueLaunched = false;
         

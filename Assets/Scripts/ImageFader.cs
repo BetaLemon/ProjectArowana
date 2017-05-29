@@ -55,7 +55,7 @@ public class ImageFader : MonoBehaviour {
 
         FadeOut();
         if (fadeObject.color.a >= 0.9f) {
-            timer.GetComponent<TimeCounter>().SaveTimer();
+            if (timer != null) timer.GetComponent<TimeCounter>().SaveTimer();
             SceneManager.LoadScene(sceneNumber);
             }
         }
