@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ConversationDisplayer : MonoBehaviour
 {
+    
     public static ConversationDisplayer displayerInstance;
 
     private Text _textComponent; //We save the text we want to write to the text component here
