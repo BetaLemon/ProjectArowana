@@ -12,6 +12,7 @@ public class ImageFader : MonoBehaviour {
     [HideInInspector]
     public bool scenefinish = false;
     private float fadeTime;
+    public GameObject timer;
     // Use this for initialization
     void Start () {
         fadeObject.transform.localScale = new Vector2(Screen.width, Screen.height);
@@ -53,9 +54,9 @@ public class ImageFader : MonoBehaviour {
         if (!fadeObject.enabled) fadeObject.enabled = true;
 
         FadeOut();
-        if (fadeObject.color.a >= 0.9f)
-            {
-                SceneManager.LoadScene(sceneNumber);
+        if (fadeObject.color.a >= 0.9f) {
+            timer.GetComponent<TimeCounter>().SaveTimer();
+            SceneManager.LoadScene(sceneNumber);
             }
         }
     
