@@ -8,6 +8,7 @@ public class KeyPickup : MonoBehaviour {
     public GameObject hudkey;
 	// Use this for initialization
 	void Start () {
+        hudkey = GameObject.Find("hudkey");
         hudkey.SetActive(false);
      }
 
