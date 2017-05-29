@@ -67,6 +67,7 @@ public class PauseScript : MonoBehaviour {
     {
         paused = false;
         Time.timeScale = 1;
+        timer.GetComponent<TimeCounter>().SaveTimer();
         pauseMenu.SetActive(false);
         SceneManager.LoadScene(1);
     }
