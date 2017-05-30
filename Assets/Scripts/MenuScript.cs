@@ -18,11 +18,10 @@ public class MenuScript : MonoBehaviour {
     public Scene game;
 
     public ImageFader fadeImage;
-    public Image imageBG;
     // Use this for initialization
     void Start () {
 
-        imageBG.rectTransform.localScale = new Vector2(Screen.width + 2, Screen.height);
+
         //this just activated the buttons
         startButton.onClick.AddListener(StartButton);
         optionsButton.onClick.AddListener(OptionsButton);
@@ -39,7 +38,7 @@ public class MenuScript : MonoBehaviour {
 
         //buscamos la musica de nivel y nos la petamos
         GameObject lvmusic = GameObject.FindGameObjectWithTag("LevelMusic");
-        lvmusic.GetComponent<MusicPlayer>().destroyMe();
+       if (lvmusic != null) lvmusic.GetComponent<MusicPlayer>().destroyMe();
     }
 	
 	// Update is called once per frame
