@@ -30,9 +30,19 @@ public class HUBmanager : MonoBehaviour {
     public FountainScript activateFountain;
 
     public GameObject spawnZenku;
+    public GameObject spawnZenku2;
+    public GameObject spawnZenkuW1;
+    public GameObject spawnZenkuW2;
+    public GameObject spawnZenkuW3;
+    public GameObject spawnZenkuW4;
     void Start () {
 
         spawnZenku.SetActive(false);
+        spawnZenkuW1.SetActive(false);
+        spawnZenkuW2.SetActive(false);
+        spawnZenkuW3.SetActive(false);
+        spawnZenkuW4.SetActive(false);
+
         //get components
         l1C = PlayerPrefs.GetInt("level1", 0);
         l2C = PlayerPrefs.GetInt("level2", 0);
@@ -50,9 +60,15 @@ public class HUBmanager : MonoBehaviour {
             activateFountain.activable = true;
             activateFountain.updateState();
             spawnZenku.SetActive(true);
+            spawnZenku2.SetActive(false);
         }
         else
             activateFountain.activable = false;
+
+        if (l1C == 2 && l2C == 2) spawnZenkuW1.SetActive(true);
+        if (l3C == 2 && l4C == 2) spawnZenkuW2.SetActive(true);
+        if (l5C == 2 && l6C == 2) spawnZenkuW3.SetActive(true);
+        if (l7C == 2 && l8C == 2) spawnZenkuW4.SetActive(true);
 
         //update stuff
         door1.GetComponent<hubDOOR>().UpdateState(l1C);
