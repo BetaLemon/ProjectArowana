@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
 
     public AudioSource jumpSound;
     public AudioSource fallSound;
+    public AudioSource switchkeySoundLight;
+    public AudioSource switchkeySoundHeavy;
 
     [HideInInspector]                           // This is used for the variable defined after it to be hidden in Unity's inspector.
     public bool facingRight = true;             // Boolean used for knowing if the player faces Left or Right, so we can later flip the sprite.
@@ -129,11 +131,13 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
             {
                 case 0: //Light
                     WeightMode = 2; // -> Heavy
+                    switchkeySoundLight.Play();
                     animator.SetBool("Heavy", true);
                     animator.SetBool("Light", false);
                     break;
                 case 2: //Heavy
                     WeightMode = 0; // -> Light
+                    switchkeySoundHeavy.Play();
                     animator.SetBool("Heavy", false);
                     animator.SetBool("Light", true);
                     break;

@@ -14,6 +14,8 @@ public class Door : MonoBehaviour {
     public bool autoActivate;
     public string bFileName;
     private int statusChecker;
+    public AudioSource openedDoor;
+
     void Start () {
         animator = GetComponent<Animator>();
 
@@ -35,9 +37,9 @@ public class Door : MonoBehaviour {
     {
         if (collision.tag == "Player" && GameObject.Find("Player").GetComponent<KeyPickup>().hasKey == true)
         {
+            openedDoor.Play();
             PlayerController.instance.startStopMovement(false);
             //dependiendo si lo ha acabado con todos los coleccionables o no, tal y cual
-            
             
             if (statusChecker == 0 || statusChecker == 1)
             {
@@ -53,6 +55,7 @@ public class Door : MonoBehaviour {
         }
         else if (collision.tag == "Player" && autoActivate)
         {
+            openedDoor.Play();
             PlayerController.instance.startStopMovement(false);
             fadeImage.nextScene = nextLevel;
             animator.SetBool("Open", true);

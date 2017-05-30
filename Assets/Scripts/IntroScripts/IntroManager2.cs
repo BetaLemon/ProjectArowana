@@ -11,8 +11,8 @@ public class IntroManager2 : MonoBehaviour {
 	void Start () {
         timeInScene = 0.0f;
         dialogueLaunched = false;
-        
-	}
+        PlayerController.instance.startStopMovement(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {

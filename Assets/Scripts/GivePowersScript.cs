@@ -7,6 +7,7 @@ public class GivePowersScript : MonoBehaviour {
     bool triggered;
     public GameObject thisKey;
     GameObject player;
+    public AudioSource getSound;
     // Use this for initialization
     void Start () {
         triggered = false;
@@ -25,6 +26,7 @@ public class GivePowersScript : MonoBehaviour {
 
     public void destroyKey() {
        triggered = true;
+       getSound.Play();
        player.GetComponent<PlayerController>().GetKeyAnim();
        gameObject.GetComponent<SpriteRenderer>().sprite = null;
     }

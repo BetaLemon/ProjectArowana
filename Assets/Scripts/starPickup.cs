@@ -10,7 +10,9 @@ public class starPickup : MonoBehaviour {
     public GameObject hud1;
     public GameObject hud2;
     public GameObject hud3;
-	void Start () {
+    public AudioSource getItem;
+
+    void Start () {
         hasAll = false;
         starCount = 0;
         
@@ -33,6 +35,7 @@ public class starPickup : MonoBehaviour {
         if (other.gameObject.tag == "star")
         {
             Destroy(other.gameObject);
+            getItem.Play();
             starCount++;
             if (starCount == 1)
             {

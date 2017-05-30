@@ -8,6 +8,7 @@ public class BreakBoxBehaviour : MonoBehaviour {
     private float prevSpeedY;
     private bool destroyBox;
     private float timeToDestroy = 0.5f;
+    public AudioSource breakBox;
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
@@ -29,6 +30,8 @@ public class BreakBoxBehaviour : MonoBehaviour {
     {
         if (prevSpeedY < -20)
         {
+
+            breakBox.Play();
             animator.SetBool("Break", true);
             destroyBox = true;
         }

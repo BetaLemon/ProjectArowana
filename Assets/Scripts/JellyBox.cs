@@ -7,7 +7,9 @@ public class JellyBox : MonoBehaviour {
     public Sprite idle; // Drag your first sprite here
     public Sprite crushed; // Drag your second sprite here
     public int jumpSpeed;
-    public AudioSource effect;
+    public AudioSource comp;
+    public AudioSource descomp;
+    bool playCompSound;
     private bool crush = false;
     private bool collisionEnter;
     private bool changedCol;
@@ -18,7 +20,7 @@ public class JellyBox : MonoBehaviour {
     GameObject idleCollider;
     GameObject crushedCollider;
     void Start () {
-
+        playCompSound = true;
         spriteRenderer = GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
 
         animator = GetComponent<Animator>();
@@ -43,6 +45,11 @@ public class JellyBox : MonoBehaviour {
         {
             if (GameObject.Find("Player").GetComponent<PlayerController>().WeightMode == 2)
             {
+                if (playCompSound)
+                {
+                    comp.Play();
+                    playCompSound = false;
+                }
                 crush = true;
                 animator.SetBool("crushed", true);
                 animator.SetBool("uncrush", false);
@@ -57,7 +64,7 @@ public class JellyBox : MonoBehaviour {
                     
                 animator.SetBool("uncrush", true);
                 animator.SetBool("crushed", false);
-                effect.Play();
+                descomp.Play();
                 crush = false;
 
                 changedCol = false;
@@ -92,13 +99,16 @@ public class JellyBox : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (GameObject.Find("Player").GetComponent<PlayerController>().transform.position.y > this.transform.position.y)
+        {
             collisionEnter = true;
+        }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         collisionEnter = false;
         animator.SetBool("crushed", false);
         animator.SetBool("uncrush", false);
+        playCompSound = true;
         crush = false;
     }
 }

@@ -16,6 +16,7 @@ public class hubDOOR : MonoBehaviour {
     public int state;
     public GameObject s1Mark;
     public GameObject s2Mark;
+    public AudioSource soundEffect;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,6 +29,7 @@ public class hubDOOR : MonoBehaviour {
     {
         if (isCollided && Input.GetButtonDown("Switch") && activable)
         {
+            soundEffect.Play();
             PlayerController.instance.startStopMovement(false);
             fadeImage.nextScene = levelDoor;
             animator.SetBool("Open", true);

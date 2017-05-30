@@ -15,12 +15,14 @@ public class IntroManager : MonoBehaviour {
     bool dialogueFinished;
     bool lerpFinished;
     bool quakeFinished;
+    public AudioSource earthsound;
 	void Start () {
         timeInScene = Time.time;
         dialogueLaunched = false;
         dialogueFinished = false;
         lerpFinished = false;
         quakeLaunched = false;
+        GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
     }
 	
 	// Update is called once per frame
@@ -36,6 +38,7 @@ public class IntroManager : MonoBehaviour {
         if (dialogueFinished && lerpFinished && !quakeLaunched)
         {
             quakeLaunched = true;
+            earthsound.Play();
             cameraI.GetComponent<CameraShake>().StartShake(magnitudeEarthquake);
         }
         if (quakeFinished)
@@ -48,6 +51,7 @@ public class IntroManager : MonoBehaviour {
     public void DialogueDone()
     {
         dialogueFinished = true;
+        GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
     }
     public void LerpDone()
     {

@@ -80,8 +80,7 @@ public class HUBmanager : MonoBehaviour {
         {
             activateFountain.activable = false;
         }
-
-
+        
         if (l9C == 2) level9mark2.SetActive(true);
         else level9mark2.SetActive(false);
         if (l10C == 2) level10mark2.SetActive(true);
