@@ -36,6 +36,10 @@ public class MenuScript : MonoBehaviour {
         float volume = PlayerPrefs.GetFloat("Volume", 1);
         volumeSlider.value = volume;
         VolumeController();
+
+        //buscamos la musica de nivel y nos la petamos
+        GameObject lvmusic = GameObject.FindGameObjectWithTag("LevelMusic");
+        lvmusic.GetComponent<MusicPlayer>().destroyMe();
     }
 	
 	// Update is called once per frame

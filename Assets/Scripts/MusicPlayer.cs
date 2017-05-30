@@ -12,8 +12,12 @@ public class MusicPlayer : MonoBehaviour {
         audioFileStart.Play();
         looped = false;
         time = 0.0f;
-
-	}
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -29,4 +33,8 @@ public class MusicPlayer : MonoBehaviour {
             time += Time.deltaTime;
         }
 	}
+    public void destroyMe()
+    {
+        Destroy(gameObject);
+    }
 }
