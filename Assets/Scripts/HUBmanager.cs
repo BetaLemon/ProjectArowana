@@ -54,22 +54,6 @@ public class HUBmanager : MonoBehaviour {
         l8C = PlayerPrefs.GetInt("level8", 0);
         l9C = PlayerPrefs.GetInt("level9", 0);
         l10C = PlayerPrefs.GetInt("level10", 0);
-
-        if (l1C != 0 && l2C != 0 && l3C != 0 && l4C != 0 && l5C != 0 && l6C != 0 && l7C != 0 && l8C != 0)
-        {
-            activateFountain.activable = true;
-            activateFountain.updateState();
-            spawnZenku.SetActive(true);
-            spawnZenku2.SetActive(false);
-        }
-        else
-            activateFountain.activable = false;
-
-        if (l1C == 2 && l2C == 2) spawnZenkuW1.SetActive(true);
-        if (l3C == 2 && l4C == 2) spawnZenkuW2.SetActive(true);
-        if (l5C == 2 && l6C == 2) spawnZenkuW3.SetActive(true);
-        if (l7C == 2 && l8C == 2) spawnZenkuW4.SetActive(true);
-
         //update stuff
         door1.GetComponent<hubDOOR>().UpdateState(l1C);
         door2.GetComponent<hubDOOR>().UpdateState(l2C);
@@ -79,6 +63,24 @@ public class HUBmanager : MonoBehaviour {
         door6.GetComponent<hubDOOR>().UpdateState(l6C);
         door7.GetComponent<hubDOOR>().UpdateState(l7C);
         door8.GetComponent<hubDOOR>().UpdateState(l8C);
+
+        if (l1C == 2 && l2C == 2) spawnZenkuW1.SetActive(true);
+        if (l3C == 2 && l4C == 2) spawnZenkuW2.SetActive(true);
+        if (l5C == 2 && l6C == 2) spawnZenkuW3.SetActive(true);
+        if (l7C == 2 && l8C == 2) spawnZenkuW4.SetActive(true);
+
+        if (l1C != 0 && l2C != 0 && l3C != 0 && l4C != 0 && l5C != 0 && l6C != 0 && l7C != 0 && l8C != 0)
+        {
+            activateFountain.activable = true;
+            activateFountain.updateState();
+            spawnZenku.SetActive(true);
+            spawnZenku2.SetActive(false);
+        }
+        else
+        {
+            activateFountain.activable = false;
+        }
+
 
         if (l9C == 2) level9mark2.SetActive(true);
         else level9mark2.SetActive(false);

@@ -18,7 +18,7 @@ public class Door : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         //checker para no sobreescribir innecesariamente LOL
-        statusChecker = PlayerPrefs.GetInt("level2", 0);
+        statusChecker = PlayerPrefs.GetInt(bFileName, 0);
 
         //si el nivel 2 esta acabado previamente (se puede acceder a hubworld), se lleva al hub en vez de nivel 2
         //se hace con el nivel 2 porque podrian haber problemas si se hace reset quizas
@@ -37,7 +37,7 @@ public class Door : MonoBehaviour {
         {
             PlayerController.instance.startStopMovement(false);
             //dependiendo si lo ha acabado con todos los coleccionables o no, tal y cual
-
+            
             
             if (statusChecker == 0 || statusChecker == 1)
             {
