@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HUBmanager : MonoBehaviour {
-
+    
     // Use this for initialization, 0->not completed, 1-> completed, 2-> completed with collectables
     public int l1C;
     public int l2C;

@@ -8,14 +8,19 @@ public class FountainScript : MonoBehaviour {
     bool collisionEnter;
     public ImageFader fadeImage;
     public GameObject effect;
-
+    bool canActivateTimer;
+    private float timer;
 	void Start () {
         
         effect.SetActive(false);
+        timer = 1.00f;
+        canActivateTimer = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        timer -= Time.deltaTime;
+        if (timer < 0) canActivateTimer = true;
 		if (collisionEnter && Input.GetButtonDown("Switch") && activable)
         {
             fadeImage.nextScene = 14;
