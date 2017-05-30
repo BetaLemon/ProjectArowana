@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         instance = this;
         triggerDelaySurpassed = false; //Evitar que se ejecuten Play(); de sonido y particulas al inicio de spawneo en escena.
 
-       rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
+        rb2d = GetComponent<Rigidbody2D>(); // This will contain the player's RB2D.
         playerCollider = GetComponent<CapsuleCollider2D>();
 
         animator = GetComponent<Animator>();    //Assigns the Animator component from the player game object to the animator reference.
@@ -276,6 +276,7 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
     {
        canChangeWeight = true;
        WeightMode = 2; // -> Heavy
+        animator.SetBool("KeyGet", false);
        animator.SetBool("Heavy", true);
 
     }
@@ -302,5 +303,9 @@ public class PlayerController : MonoBehaviour { // I don't know what MonoBehavio
         canMove = startstop;
         rb2d.velocity = new Vector2(0, 0);
 
+    }
+    public void GetKeyAnim()
+    {
+        animator.SetBool("KeyGet", true);
     }
 }
