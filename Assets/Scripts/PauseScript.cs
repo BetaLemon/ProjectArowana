@@ -15,6 +15,7 @@ public class PauseScript : MonoBehaviour {
     public GameObject kHud;
     public GameObject timer;
     private bool paused;
+    public AudioSource buttonS;
   
     void Start () {
         kHud = GameObject.Find("Collecteds");
@@ -51,12 +52,14 @@ public class PauseScript : MonoBehaviour {
     
     void ResumeButton()
     {
+        buttonS.Play();
         paused = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
     }
     void RestartButton()
     {
+        buttonS.Play();
         paused = false;
         Time.timeScale = 1;
         timer.GetComponent<TimeCounter>().SaveTimer();
@@ -65,6 +68,7 @@ public class PauseScript : MonoBehaviour {
     }
     void MenuButton()
     {
+        buttonS.Play();
         paused = false;
         Time.timeScale = 1;
         timer.GetComponent<TimeCounter>().SaveTimer();

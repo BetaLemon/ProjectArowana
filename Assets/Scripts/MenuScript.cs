@@ -18,6 +18,7 @@ public class MenuScript : MonoBehaviour {
     public Scene game;
 
     public ImageFader fadeImage;
+    public AudioSource buttonSound;
     // Use this for initialization
     void Start () {
 
@@ -46,6 +47,7 @@ public class MenuScript : MonoBehaviour {
     }
     void StartButton()
     {
+        buttonSound.Play();
         int level2C = PlayerPrefs.GetInt("level2", 0);
         //continue, goes to hubworld
         if (level2C != 0)
@@ -58,20 +60,24 @@ public class MenuScript : MonoBehaviour {
     }
     void OptionsButton()
     {
+        buttonSound.Play();
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
     }
     void ExitButton()
     {
+        buttonSound.Play();
         Application.Quit();
     }
     void BackToMainMenu()
     {
+        buttonSound.Play();
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
     void ResetButton()
     {
+        buttonSound.Play();
         PlayerPrefs.SetInt("level1", 0);
         PlayerPrefs.SetInt("level2", 0);
         PlayerPrefs.SetInt("level3", 0);
