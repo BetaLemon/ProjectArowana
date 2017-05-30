@@ -8,7 +8,7 @@ public class FountainScript : MonoBehaviour {
     bool collisionEnter;
     public ImageFader fadeImage;
     public GameObject effect;
-    bool canActivateTimer;
+    public bool canActivateTimer;
     private float timer;
 	void Start () {
         
@@ -21,7 +21,7 @@ public class FountainScript : MonoBehaviour {
 	void Update () {
         timer -= Time.deltaTime;
         if (timer < 0) canActivateTimer = true;
-		if (collisionEnter && Input.GetButtonDown("Switch") && activable)
+		if (collisionEnter && Input.GetButtonDown("Switch") && activable && canActivateTimer)
         {
             fadeImage.nextScene = 14;
             fadeImage.scenefinish = true;
