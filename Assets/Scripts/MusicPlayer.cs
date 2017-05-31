@@ -7,12 +7,11 @@ public class MusicPlayer : MonoBehaviour {
     public AudioSource audioFileStart;
     public AudioSource audioFileLoop;
     private bool looped;
-    private float time;
 	void Awake () {
         audioFileStart.Play();
         looped = false;
-        time = 0.0f;
         DontDestroyOnLoad(this);
+
         if (FindObjectsOfType(GetType()).Length > 1)
         {
             Destroy(gameObject);
@@ -20,17 +19,12 @@ public class MusicPlayer : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-
-        if (time > audioFileStart.clip.length && !looped)
+	void Update () {
+        if(audioFileStart.time == 45.019f && !looped)
         {
             audioFileLoop.Play();
             audioFileStart.Stop();
             looped = true;
-        }
-        else
-        {
-            time += Time.deltaTime;
         }
 	}
     public void destroyMe()
