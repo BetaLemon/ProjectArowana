@@ -13,6 +13,9 @@ public class GivePowersScript : MonoBehaviour {
         triggered = false;
         player = GameObject.Find("Player");
 
+        if (PlayerPrefs.GetInt("level2", 0) > 0) instaDestroy();
+        if (PlayerPrefs.GetInt("level1", 0) > 0) instaDestroy();
+        else Destroy(gameObject);
     }
 	
 	// Update is called once per frame
@@ -29,6 +32,12 @@ public class GivePowersScript : MonoBehaviour {
        getSound.Play();
        player.GetComponent<PlayerController>().GetKeyAnim();
        gameObject.GetComponent<SpriteRenderer>().sprite = null;
+    }
+
+    void instaDestroy()
+    {
+        player.GetComponent<PlayerController>().GivePowers();
+        Destroy(gameObject);
     }
 }
 
